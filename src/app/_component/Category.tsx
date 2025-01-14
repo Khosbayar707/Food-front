@@ -23,6 +23,19 @@ export function Category() {
     getCategory();
   }, []);
 
+  async function addCategry() {
+    const categoryName = prompt("Enter category name");
+    const response = await fetch(`http://localhost:8000/food-category/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ categoryName }),
+    });
+    const data = await response.json();
+    setCategories([...categories, data]);
+  }
+
   return (
     <div className="var(--radiusrounded-xl) var(--spacing6) p-6">
       <h1>Dishes category</h1>
@@ -33,6 +46,7 @@ export function Category() {
               {category.categoryName}
             </Badge>
           ))}
+        <button onClick={addCategry}>Add</button>
       </div>
     </div>
   );

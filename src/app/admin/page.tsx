@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Category } from "../_component/Category";
+import { LayoutDashboard } from "lucide-react";
 
 export default function Page() {
   return (
@@ -12,7 +13,7 @@ export default function Page() {
             <h2>Swift delivery</h2>
           </>
           <>
-            <img src="/assets/Dashboard.svg" alt="Logo" />
+            <LayoutDashboard />
             <h2>Food menu</h2>
           </>
           <>
