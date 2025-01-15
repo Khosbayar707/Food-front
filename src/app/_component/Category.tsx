@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Plus } from "lucide-react";
 
 type Category = {
   _id: string;
@@ -37,16 +38,21 @@ export function Category() {
   }
 
   return (
-    <div className="var(--radiusrounded-xl) var(--spacing6) p-6">
-      <h1>Dishes category</h1>
-      <div>
+    <div className="p-6 rounded-lg bg-white mt-[84px]">
+      <b>Dishes category</b>
+      <div className="flex-wrap">
         {categories &&
           categories.map((category: Category) => (
-            <Badge variant="outline" key={category._id}>
-              {category.categoryName}
+            <Badge variant={"outlined"} key={category?._id} className="mx-1">
+              {category?.categoryName}
             </Badge>
           ))}
-        <button onClick={addCategry}>Add</button>
+        <button
+          className="rounded-full bg-red-500 text-[12px] text-white "
+          onClick={addCategry}
+        >
+          <Plus />
+        </button>
       </div>
     </div>
   );
