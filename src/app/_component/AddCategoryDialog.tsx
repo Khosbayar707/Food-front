@@ -31,7 +31,6 @@ export function AddCategoryDialog({ onAddCategory }: AddCategoryDialogProps) {
           <Plus />
         </button>
       </DialogTrigger>
-
       <DialogContent>
         <DialogHeader>Add New Category</DialogHeader>
         <div className="space-y-4">

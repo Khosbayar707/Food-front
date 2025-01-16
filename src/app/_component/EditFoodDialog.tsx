@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogFooter,
   DialogClose,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Pencil, Trash2 } from "lucide-react";
 
@@ -62,7 +63,9 @@ export function EditFoodDialog({ food }: Props) {
         </button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>Add New Category</DialogHeader>
+        <DialogHeader>
+          <DialogTitle>Edit Food</DialogTitle>
+        </DialogHeader>
         <div className="space-y-4">
           <input
             type="text"
