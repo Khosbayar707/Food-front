@@ -41,11 +41,10 @@ export function Category() {
       <div className="flex-wrap">
         {categories &&
           categories.map((category: Category) => (
-            <Badge variant={"outlined"} key={category?._id} className="mx-1">
+            <Badge variant={"outline"} key={category?._id} className="mx-1">
               {category?.categoryName}
             </Badge>
           ))}
-
         <AddCategoryDialog onAddCategory={addCategory} />
       </div>
     </div>

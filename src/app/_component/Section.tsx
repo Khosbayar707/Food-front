@@ -9,7 +9,6 @@ type Category = {
   createdAt: Date;
   updatedAt: Date;
 };
-type Id = string;
 
 export function Section() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -43,7 +42,7 @@ export function Section() {
           <div className="p-6 rounded-lg bg-white mt-[24px]">
             <div key={category?._id} className="mx-1">
               {category?.categoryName}
-              <Card id={category._id} />
+              <Card category={category} />
             </div>
           </div>
         ))}
