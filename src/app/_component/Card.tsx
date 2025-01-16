@@ -10,6 +10,7 @@ type Foods = {
 };
 
 type Props = {
+  _id: string;
   id: string;
   categoryName: string;
   createdAt: Date;
@@ -28,19 +29,30 @@ export function Card(props: Props) {
     getFood();
   }, []);
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-6 flex-wrap">
       {foods &&
         foods.map((food: Foods) => (
           <div
-            className="w-[270px] h-[240px] rounded-md border-2 border-[#E4E4E7]"
+            className="w-[270px] h-[250px] rounded-lg border-2 border-[#E4E4E7] overflow-hidden shadow-md hover:shadow-lg transition-all"
             key={food?._id}
           >
-            <div className="rounded-md overflow-hidden w-[239px] h-[129px] ">
-              <img src={food?.image} alt="image" />
+            <div className="w-[90%] h-[120px] rounded-lg overflow-hidden mt-[10px] ml-[13px]">
+              <img
+                src={food?.image}
+                alt="food photo"
+                className="object-cover w-full h-full"
+              />
             </div>
-            <div>{food?.foodName}</div>
-            <div>{food?.price}</div>
-            <div>{food?.ingredients}</div>
+
+            <div className="p-4 h-[90px]">
+              <h3 className="text-lg font-semibold text-gray-800 truncate">
+                {food?.foodName}
+              </h3>
+              <p className="text-sm text-gray-500">Price: ${food?.price}</p>
+              <p className="text-sm text-gray-600 line-clamp-2">
+                {food?.ingredients}
+              </p>
+            </div>
           </div>
         ))}
     </div>

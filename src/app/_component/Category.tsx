@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Plus } from "lucide-react";
+import { AddCategoryDialog } from "./AddCategoryDialog";
 
 type Category = {
   _id: string;
@@ -19,13 +19,11 @@ export function Category() {
       const response = await fetch(`http://localhost:8000/food-category/`);
       const data = await response.json();
       setCategories(data);
-      //   console.log(category);
     }
     getCategory();
   }, []);
 
-  async function addCategry() {
-    const categoryName = prompt("Enter category name");
+  async function addCategory(categoryName: string) {
     const response = await fetch(`http://localhost:8000/food-category/`, {
       method: "POST",
       headers: {
@@ -47,12 +45,8 @@ export function Category() {
               {category?.categoryName}
             </Badge>
           ))}
-        <button
-          className="rounded-full bg-red-500 text-[12px] text-white "
-          onClick={addCategry}
-        >
-          <Plus />
-        </button>
+
+        <AddCategoryDialog onAddCategory={addCategory} />
       </div>
     </div>
   );

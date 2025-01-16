@@ -37,7 +37,7 @@ export function Section() {
     setCategories([...categories, data]);
   }
   return (
-    <>
+    <div>
       {categories &&
         categories.map((category: Category) => (
           <div className="p-6 rounded-lg bg-white mt-[24px]">
@@ -47,6 +47,6 @@ export function Section() {
             </div>
           </div>
         ))}
-    </>
+    </div>
   );
 }
