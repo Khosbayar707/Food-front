@@ -27,9 +27,9 @@ export function AddCategoryDialog({ onAddCategory }: AddCategoryDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="rounded-full bg-red-500 text-[12px] text-white">
+        <div className="rounded-full bg-red-500 text-[12px] text-white w-6 h-6">
           <Plus />
-        </button>
+        </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>Add New Category</DialogHeader>

@@ -1,13 +1,38 @@
-// pages/index.tsx (or any page where you want to use the layout)
+"use client";
+import { useEffect, useState } from "react";
 import { Category } from "../_component/Category";
 import Layout from "../_component/Layout";
 import { Section } from "../_component/Section";
+type Props = {
+  searchParams: Promise<{ category: string }>;
+};
 
-export default function Page() {
+type Foods = {
+  _id: string;
+  foodName: string;
+  price: string;
+  image: string;
+  ingredients: string;
+  category: string;
+};
+
+export default async function Page(props: Props) {
+  const { category } = await props.searchParams;
+  console.log(category);
+  const [foods, setFoods] = useState<Foods[]>([]);
+
+  async function getFood() {
+    const response = await fetch(`http://localhost:8000/food/${category}`);
+    const data = await response.json();
+    setFoods(data);
+  }
+  useEffect(() => {
+    getFood();
+  }, [foods]);
   return (
     <Layout>
       <Category />
-      <Section />
+      {!category ? <Section /> : <div></div>}
     </Layout>
   );
 }

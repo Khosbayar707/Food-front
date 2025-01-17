@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { AddCategoryDialog } from "./AddCategoryDialog";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Section } from "./Section";
 
 type Category = {
   _id: string;
@@ -13,7 +16,8 @@ type Category = {
 
 export function Category() {
   const [categories, setCategories] = useState<Category[]>([]);
-
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
   useEffect(() => {
     async function getCategory() {
       const response = await fetch(`http://localhost:8000/food-category/`);
@@ -39,13 +43,20 @@ export function Category() {
     <div className="p-6 rounded-lg bg-white mt-[84px]">
       <b>Dishes category</b>
       <div className="flex-wrap">
+        <Link href={`admin`}>
+          <Badge variant={"outline"}>All categories</Badge>
+        </Link>
         {categories &&
           categories.map((category: Category) => (
-            <Badge variant={"outline"} key={category?._id} className="mx-1">
-              {category?.categoryName}
-            </Badge>
+            <Link href={`admin?category=${category?._id}`}>
+              <Badge variant={"outline"} key={category?._id} className="mx-1">
+                {category?.categoryName}
+              </Badge>
+            </Link>
           ))}
-        <AddCategoryDialog onAddCategory={addCategory} />
+        <div>
+          <AddCategoryDialog onAddCategory={addCategory} />
+        </div>
       </div>
     </div>
   );
