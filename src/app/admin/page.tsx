@@ -3,36 +3,37 @@ import { useEffect, useState } from "react";
 import { Category } from "../_component/Category";
 import Layout from "../_component/Layout";
 import { Section } from "../_component/Section";
-type Props = {
-  searchParams: Promise<{ category: string }>;
-};
+// type Props = {
+//   searchParams: Promise<{ category: string }>;
+// };
 
-type Foods = {
-  _id: string;
-  foodName: string;
-  price: string;
-  image: string;
-  ingredients: string;
-  category: string;
-};
+// type Foods = {
+//   _id: string;
+//   foodName: string;
+//   price: string;
+//   image: string;
+//   ingredients: string;
+//   category: string;
+// };
 
 export default async function Page(props: Props) {
-  const { category } = await props.searchParams;
-  console.log(category);
-  const [foods, setFoods] = useState<Foods[]>([]);
+  // const { category } = await props.searchParams;
+  // console.log(category);
+  // const [foods, setFoods] = useState<Foods[]>([]);
 
-  async function getFood() {
-    const response = await fetch(`http://localhost:8000/food/${category}`);
-    const data = await response.json();
-    setFoods(data);
-  }
-  useEffect(() => {
-    getFood();
-  }, [foods]);
+  // async function getFood() {
+  //   const response = await fetch(`http://localhost:8000/food/${category}`);
+  //   const data = await response.json();
+  //   setFoods(data);
+  // }
+  // useEffect(() => {
+  //   getFood();
+  // }, [foods]);
   return (
     <Layout>
       <Category />
-      {!category ? <Section /> : <div></div>}
+      {/* {!category ? <Section /> : <div></div>} */}
+      <Section />
     </Layout>
   );
 }
