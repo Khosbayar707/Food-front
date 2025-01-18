@@ -48,8 +48,14 @@ export function Category() {
         </Link>
         {categories &&
           categories.map((category: Category) => (
-            <Link href={`admin?category=${category?._id}`}>
-              <Badge variant={"outline"} key={category?._id} className="mx-1">
+            <Link
+              href={`/admin/${category?.categoryName}?category=${category?._id}`}
+            >
+              <Badge
+                variant={"outline"}
+                key={category?._id}
+                className="mx-1 cursor-pointer"
+              >
                 {category?.categoryName}
               </Badge>
             </Link>

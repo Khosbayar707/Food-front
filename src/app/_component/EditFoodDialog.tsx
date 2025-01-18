@@ -41,12 +41,14 @@ type Category = {
 };
 
 export function EditFoodDialog({ food }: Props) {
+  const [newFood, setFood] = useState(food);
   const [newFoodName, setNewFoodName] = useState<string>(food.foodName);
   const [newFoodIngredients, setNewFoodIngredients] = useState<string>(
     food.ingredients
   );
   const [newCategory, setNewCategory] = useState<string>(food.category);
   const [newPrice, setNewPrice] = useState<string>(food.price);
+  const [newImage, setNewImage] = useState<string>(food.image);
 
   // useEffect(() => {
   //   setNewFoodName(food.foodName);
@@ -75,6 +77,7 @@ export function EditFoodDialog({ food }: Props) {
         price: newPrice,
         ingredients: newFoodIngredients,
         category: newCategory,
+        image: newImage,
       }),
     });
 
@@ -94,6 +97,33 @@ export function EditFoodDialog({ food }: Props) {
     getCategory();
   }, []);
 
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "food-delivery");
+
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/dpyjpkzqg/upload`,
+          { method: "POST", body: data }
+        );
+
+        const dataJson = await response.json();
+        console.log("Cloudinary Response:", dataJson); // Debugging
+
+        if (dataJson.secure_url) {
+          setNewImage(dataJson.secure_url);
+        } else {
+          console.error("Image upload failed:", dataJson);
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -104,6 +134,7 @@ export function EditFoodDialog({ food }: Props) {
             setNewFoodIngredients(food.ingredients);
             setNewCategory(food.category);
             setNewPrice(food.price);
+            setNewImage(food.image);
           }}
         >
           <Pencil />
@@ -147,6 +178,20 @@ export function EditFoodDialog({ food }: Props) {
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Price"
           />
+          <div>
+            {newImage && (
+              <img
+                src={newImage}
+                alt="Preview"
+                className="w-32 h-32 object-cover mb-2"
+              />
+            )}
+            <input
+              type="file"
+              onChange={(e) => handleUpload(e)}
+              className="w-full p-2 border border-gray-300 rounded-md"
+            />
+          </div>
         </div>
         <DialogFooter>
           <DialogClose>
