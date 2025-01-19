@@ -70,3 +70,16 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%); /* Start offscreen to the right */
+  }
+  100% {
+    transform: translateX(-100%); /* End offscreen to the left */
+  }
+}
+
+.animate-scroll {
+  animation: scroll 15s linear infinite;
+}
