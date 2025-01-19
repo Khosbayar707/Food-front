@@ -1,15 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { MainCard } from "./MainCard";
-
-type Category = {
-  _id: string;
-  categoryName: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { Category } from "../types";
 
 export function MainSection() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -41,8 +34,10 @@ export function MainSection() {
       {categories &&
         categories.map((category: Category) => (
           <div className="py-2 px-6 rounded-lg font-bold">
-            <div key={category?._id} className="mx-1">
-              <h1 className="text-white my-4">{category?.categoryName}</h1>
+            <div key={category?._id} className="mx-1 my-2">
+              <div className="text-white my-4 w-[90%] mx-auto text-xl">
+                {category?.categoryName}
+              </div>
               <MainCard category={category} />
             </div>
           </div>

@@ -4,15 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { EditFoodDialog } from "@/app/_component/EditFoodDialog";
-
-type Foods = {
-  _id: string;
-  foodName: string;
-  price: string;
-  image: string;
-  ingredients: string;
-  category: string;
-};
+import { Foods } from "@/app/types";
 
 export default function CategoryPage() {
   const { id } = useParams();
@@ -39,8 +31,7 @@ export default function CategoryPage() {
           Back to Categories
         </button>
       </Link>
-
-      <div className="flex gap-6 flex-wrap">
+      <div className="flex flex-wrap justify-center gap-4 mt-4 mx-auto">
         {foods &&
           foods.map((food: Foods) => (
             <div

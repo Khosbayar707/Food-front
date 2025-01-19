@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Card } from "./Card";
-
-type Category = {
-  _id: string;
-  categoryName: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { Category } from "../types";
 
 export function Section() {
   const [categories, setCategories] = useState<Category[]>([]);

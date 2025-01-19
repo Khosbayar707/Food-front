@@ -1,14 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
-type Foods = {
-  _id: string;
-  foodName: string;
-  price: string;
-  image: string;
-  ingredients: string;
-  category: string;
-};
+import { Foods } from "../types";
 
 type Category = {
   _id: string;

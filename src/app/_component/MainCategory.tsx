@@ -6,13 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
-
-type Category = {
-  _id: string;
-  categoryName: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { Category } from "../types";
 
 export function MainCategory() {
   const [categories, setCategories] = useState<Category[]>([]);

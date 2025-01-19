@@ -34,7 +34,7 @@ export function MainFooter() {
             </div>
             <div className="text-[#71717A]">
               MENU
-              <div className="text-white mt-[20px]">
+              <div className="text-white mt-[20px] w-full">
                 <FooterCategory />
               </div>
             </div>

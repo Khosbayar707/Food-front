@@ -5,14 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { AddCategoryDialog } from "./AddCategoryDialog";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Section } from "./Section";
-
-type Category = {
-  _id: string;
-  categoryName: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { Category } from "../types";
 
 export function Category() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -42,7 +35,7 @@ export function Category() {
   return (
     <div className="p-6 rounded-lg bg-white mt-[84px]">
       <b>Dishes category</b>
-      <div className="flex-wrap">
+      <div className="flex flex-wrap items-center gap-2">
         <Link href={`admin`}>
           <Badge variant={"outline"}>All categories</Badge>
         </Link>

@@ -4,13 +4,7 @@ import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-
-type Category = {
-  _id: string;
-  categoryName: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { Category } from "../types";
 
 export function FooterCategory() {
   const [categories, setCategories] = useState<Category[]>([]);

@@ -1,3 +1,5 @@
+"use client";
+
 import { MainCategory } from "../_component/MainCategory";
 import { MainSection } from "../_component/MainSection";
 
@@ -11,8 +13,10 @@ export default function MainPage() {
           className="object-cover w-full h-full"
         />
       </div>
-      <MainCategory />
-      <MainSection />
+      <div className="bg-[#404040] w-screen h-auto">
+        <MainCategory />
+        <MainSection />
+      </div>
     </div>
   );
 }

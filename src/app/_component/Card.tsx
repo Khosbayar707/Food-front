@@ -12,15 +12,7 @@ import {
 import { Pencil, Plus } from "lucide-react";
 import { EditFoodDialog } from "./EditFoodDialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
-
-type Foods = {
-  _id: string;
-  foodName: string;
-  price: string;
-  image: string;
-  ingredients: string;
-  category: string;
-};
+import { Foods } from "../types";
 
 type Category = {
   _id: string;
@@ -72,18 +64,19 @@ export function Card({ category }: Props) {
   return (
     <div className="flex gap-6 flex-wrap">
       <Dialog>
-        <DialogTrigger className="w-[270px] h-[250px] justify-self-center rounded-lg border-2 border-[#EF4444] border-dashed border-spacing-[20px]">
+        <DialogTrigger className="w-[270px] h-[250px] justify-self-center rounded-lg border-2 border-[#EF4444] border-dashed border-spacing-[10px]">
           <div className="justify-items-center">
-            <div className="rounded-full bg-[#EF4444] text-[12px] text-background w-10 justify-items-center">
+            <div className="rounded-full bg-[#EF4444] text-[12px] text-background justify-items-center">
               <Plus />
             </div>
+            <h1> Add new Dish to {category?.categoryName}</h1>
           </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             Add new Dish to {category?.categoryName}
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>Click save when you're done.</DialogDescription>
+            <DialogTitle></DialogTitle>
+            <DialogDescription></DialogDescription>
           </DialogHeader>
           <div className="flex gap-6">
             <input

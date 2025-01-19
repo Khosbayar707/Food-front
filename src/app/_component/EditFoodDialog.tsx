@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Category } from "./Category";
+import { Category } from "../types";
 
 type Props = {
   food: {
@@ -31,13 +32,6 @@ type Props = {
     ingredients: string;
     category: string;
   };
-};
-
-type Category = {
-  _id: string;
-  categoryName: string;
-  createdAt: Date;
-  updatedAt: Date;
 };
 
 export function EditFoodDialog({ food }: Props) {
@@ -111,7 +105,7 @@ export function EditFoodDialog({ food }: Props) {
         );
 
         const dataJson = await response.json();
-        console.log("Cloudinary Response:", dataJson); // Debugging
+        console.log("Cloudinary Response:", dataJson);
 
         if (dataJson.secure_url) {
           setNewImage(dataJson.secure_url);
