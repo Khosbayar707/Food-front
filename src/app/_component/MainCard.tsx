@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Foods } from "../types";
+import { BookingButton } from "./BookingButton";
 
 type Category = {
   _id: string;
@@ -76,7 +77,7 @@ export function MainCard({ category }: Props) {
                 {food?.ingredients}
               </p>
             </div>
-            {/* <EditFoodDialog food={food} /> */}
+            <BookingButton food={food} />
           </div>
         ))}
     </div>

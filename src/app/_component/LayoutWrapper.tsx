@@ -7,12 +7,12 @@ import { MainFooter } from "./MainFooter";
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminPage = pathname.startsWith("/admin");
-
+  const isOrderPage = pathname.startsWith("/order");
   return (
     <>
-      {!isAdminPage && <MainHeader />}
+      {!isAdminPage && !isOrderPage && <MainHeader />}
       <main>{children}</main>
-      {!isAdminPage && <MainFooter />}
+      {!isAdminPage && !isOrderPage && <MainFooter />}
     </>
   );
 }

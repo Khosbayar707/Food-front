@@ -20,7 +20,7 @@ export function MainCategory() {
       setCategories(data);
     }
     getCategory();
-  }, []);
+  }, [categories]);
 
   async function addCategory(categoryName: string) {
     const response = await fetch(`http://localhost:8000/food-category/`, {
@@ -43,7 +43,7 @@ export function MainCategory() {
         {categories &&
           categories.map((category: Category) => (
             <Link
-              href={`/admin/${category?.categoryName}?category=${category?._id}`}
+              href={`/${category?.categoryName}?category=${category?._id}`}
               key={category?._id}
             >
               <Badge variant={"secondary"} className="mx-1 cursor-pointer">

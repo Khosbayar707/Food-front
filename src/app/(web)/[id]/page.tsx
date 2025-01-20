@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { EditFoodDialog } from "@/app/_component/EditFoodDialog";
 import { Foods } from "@/app/types";
-import Layout from "@/app/_component/Layout";
-import { Category } from "@/app/_component/Category";
+import { MainCategory } from "@/app/_component/MainCategory";
+import { BookingButton } from "@/app/_component/BookingButton";
 
 export default function CategoryPage() {
   const { id } = useParams();
@@ -26,20 +25,27 @@ export default function CategoryPage() {
   }, [query]);
 
   return (
-    <Layout>
-      <Category />
-      <div className="p-6 rounded-lg bg-white mt-[84px]">
+    <div className="bg-[#404040]">
+      <div className="w-screen h-auto overflow-hidden">
+        <img
+          src="/assets/BG.jpg"
+          alt="logo"
+          className="object-cover w-full h-full"
+        />
+      </div>
+      <MainCategory />
+      <div className="p-6 rounded-lg">
         <h2 className="text-xl font-bold">Category dishes</h2>
-        <Link href="/admin">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded mt-2">
-            Back to Categories
+        <Link href="/">
+          <button className="text-white px-4 py-2 rounded mt-2">
+            Back to Main Page
           </button>
         </Link>
-        <div className="flex flex-wrap justify-center gap-4 mt-4 mx-auto">
+        <div className="flex flex-wrap justify-center gap-4 my-4 mx-auto">
           {foods &&
             foods.map((food: Foods) => (
               <div
-                className="w-[270px] h-[250px] rounded-lg border-2 border-[#E4E4E7] overflow-hidden shadow-md hover:shadow-lg transition-all relative"
+                className="w-[270px] h-[250px] rounded-lg bg-white border-2 border-[#E4E4E7] overflow-hidden shadow-md hover:shadow-lg transition-all relative"
                 key={food?._id}
               >
                 <div className="w-[90%] h-[120px] rounded-lg overflow-hidden mt-[10px] ml-[13px]">
@@ -56,16 +62,15 @@ export default function CategoryPage() {
                     </p>
                     <p className="text-sm text-gray-500">${food?.price}</p>
                   </div>
-
                   <p className="text-[12px] text-gray-600 line-clamp-2">
                     {food?.ingredients}
                   </p>
                 </div>
-                <EditFoodDialog food={food} />
+                <BookingButton food={food} />
               </div>
             ))}
         </div>
       </div>
-    </Layout>
+    </div>
   );
 }

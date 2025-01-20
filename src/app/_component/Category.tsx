@@ -31,7 +31,6 @@ export function Category() {
     const data = await response.json();
     setCategories([...categories, data]);
   }
-
   return (
     <div className="p-6 rounded-lg bg-white mt-[84px]">
       <b>Dishes category</b>

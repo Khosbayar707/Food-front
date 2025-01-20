@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { MainCard } from "./MainCard";
 import { Category } from "../types";
+import Link from "next/link";
 
 export function MainSection() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -35,7 +36,7 @@ export function MainSection() {
         categories.map((category: Category) => (
           <div className="py-2 px-6 rounded-lg font-bold">
             <div key={category?._id} className="mx-1 my-2">
-              <div className="text-white my-4 w-[90%] mx-auto text-xl">
+              <div className="text-white my-4 w-[90%] mx-auto text-xl hover:text-grey">
                 {category?.categoryName}
               </div>
               <MainCard category={category} />

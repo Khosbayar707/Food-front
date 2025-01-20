@@ -39,7 +39,7 @@ export function FooterCategory() {
         {categories &&
           categories.map((category: Category) => (
             <Link
-              href={`/admin/${category?.categoryName}?category=${category?._id}`}
+              href={`/${category?.categoryName}?category=${category?._id}`}
               key={category?._id}
             >
               <div className="mx-1 cursor-pointer">

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+
 import { Category } from "../_component/Category";
 import Layout from "../_component/Layout";
 import { Section } from "../_component/Section";
@@ -16,19 +16,20 @@ import { Section } from "../_component/Section";
 //   category: string;
 // };
 
-export default async function Page(props: Props) {
-  // const { category } = await props.searchParams;
-  // console.log(category);
-  // const [foods, setFoods] = useState<Foods[]>([]);
+// export default async function Page(props: Props) {
+// const { category } = await props.searchParams;
+// console.log(category);
+// const [foods, setFoods] = useState<Foods[]>([]);
 
-  // async function getFood() {
-  //   const response = await fetch(`http://localhost:8000/food/${category}`);
-  //   const data = await response.json();
-  //   setFoods(data);
-  // }
-  // useEffect(() => {
-  //   getFood();
-  // }, [foods]);
+// async function getFood() {
+//   const response = await fetch(`http://localhost:8000/food/${category}`);
+//   const data = await response.json();
+//   setFoods(data);
+// }
+// useEffect(() => {
+//   getFood();
+// }, [foods]);
+export default function Page() {
   return (
     <Layout>
       <Category />
