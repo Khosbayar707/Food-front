@@ -28,6 +28,7 @@ export function Card({ category }: Props) {
   const [newFoodName, setNewFoodName] = useState("");
   const [newPrice, setPrice] = useState("");
   const [newIngredients, setNewIngredients] = useState("");
+  const [newImage, setNewImage] = useState("");
 
   async function getFood() {
     const response = await fetch(`http://localhost:8000/food/${category?._id}`);
@@ -45,6 +46,7 @@ export function Card({ category }: Props) {
         price: newPrice,
         ingredients: newIngredients,
         category: category._id,
+        image: newImage,
       }),
     });
     const data = await response.json();
@@ -60,6 +62,33 @@ export function Card({ category }: Props) {
   useEffect(() => {
     getFood();
   }, [foods]);
+
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "food-delivery");
+
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/dpyjpkzqg/upload`,
+          { method: "POST", body: data }
+        );
+
+        const dataJson = await response.json();
+        console.log("Cloudinary Response:", dataJson);
+
+        if (dataJson.secure_url) {
+          setNewImage(dataJson.secure_url);
+        } else {
+          console.error("Image upload failed:", dataJson);
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
 
   return (
     <div className="flex gap-6 flex-wrap">
@@ -100,13 +129,39 @@ export function Card({ category }: Props) {
               className="w-full p-2 border border-gray-300 rounded-md"
             />
           </div>
-          <div>
+          <div className="relative h-[140px]">
+            {newImage && (
+              <div className="w-full h-full rounded-lg overflow-hidden object-cover mb-2">
+                <img src={newImage} alt="Preview" />
+                <button
+                  className="absolute top-[10px] left-[410px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px] z-20"
+                  onClick={() => {
+                    setNewImage("");
+                  }}
+                >
+                  <img
+                    src="/assets/BookingButton.svg"
+                    alt="logo"
+                    className="object-cover w-full h-full"
+                  />
+                </button>
+              </div>
+            )}
             <input
               type="file"
-              placeholder="Choose a file or drag & drop it here"
-              onChange={(e) => setNewIngredients(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              onChange={(e) => handleUpload(e)}
+              className="w-full h-[140px] p-2 border border-blue-300 border-dashed rounded-lg opacity-0 cursor-pointer absolute top-0 left-0 z-10"
             />
+            {!newImage && (
+              <div className="w-full h-[140px] bg-blue-100 p-2 border border-blue-400 border-dashed rounded-lg absolute top-0 left-0 z-0 flex flex-col items-center justify-center">
+                <img
+                  src="/assets/Import.svg"
+                  alt="Preview"
+                  className="w-10 h-10 object-cover rounded-full bg-white"
+                />
+                <p>Choose a file or drag & drop it here</p>
+              </div>
+            )}
           </div>
           <DialogFooter>
             <DialogClose
