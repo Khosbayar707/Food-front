@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export function OrderTable() {
+export function Table() {
   return (
     <Table className="bg-white border">
       <TableCaption>A list of all orders.</TableCaption>

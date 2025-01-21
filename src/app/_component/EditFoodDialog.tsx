@@ -20,7 +20,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Category } from "./Category";
 import { Category } from "../types";
 
 type Props = {

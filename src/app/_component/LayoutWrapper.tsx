@@ -8,11 +8,12 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminPage = pathname.startsWith("/admin");
   const isOrderPage = pathname.startsWith("/order");
+  const isLoginPage = pathname.startsWith("/login");
   return (
     <>
-      {!isAdminPage && !isOrderPage && <MainHeader />}
+      {!isAdminPage && !isOrderPage && !isLoginPage && <MainHeader />}
       <main>{children}</main>
-      {!isAdminPage && !isOrderPage && <MainFooter />}
+      {!isAdminPage && !isOrderPage && !isLoginPage && <MainFooter />}
     </>
   );
 }
