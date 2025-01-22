@@ -9,7 +9,7 @@ import {
   DialogClose,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Pencil, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { EditFoodDialog } from "./EditFoodDialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Foods } from "../types";
@@ -61,7 +61,7 @@ export function Card({ category }: Props) {
 
   useEffect(() => {
     getFood();
-  }, [foods]);
+  }, []);
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {

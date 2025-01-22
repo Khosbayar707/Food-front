@@ -6,25 +6,34 @@ import { AddCategoryDialog } from "./AddCategoryDialog";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Category } from "../types";
+import { useAuth } from "@clerk/nextjs";
 
 export function Category() {
   const [categories, setCategories] = useState<Category[]>([]);
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
+  const { getToken } = useAuth();
+
+  async function getCategory() {
+    const token = await getToken();
+    const response = await fetch(`http://localhost:8000/food-category/`, {
+      headers: { authentication: token },
+    });
+    const data = await response.json();
+    setCategories(data);
+  }
+
   useEffect(() => {
-    async function getCategory() {
-      const response = await fetch(`http://localhost:8000/food-category/`);
-      const data = await response.json();
-      setCategories(data);
-    }
     getCategory();
   }, []);
 
   async function addCategory(categoryName: string) {
+    const token = await getToken();
     const response = await fetch(`http://localhost:8000/food-category/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authentication: "token",
       },
       body: JSON.stringify({ categoryName }),
     });

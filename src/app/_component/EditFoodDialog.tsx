@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Category } from "../types";
+import { useAuth } from "@clerk/nextjs";
 
 type Props = {
   food: {
@@ -80,13 +81,19 @@ export function EditFoodDialog({ food }: Props) {
       console.error("Failed to update the food item");
     }
   }
+
   const [categories, setCategories] = useState<Category[]>([]);
+  const { getToken } = useAuth();
+  async function getCategory() {
+    const token = await getToken();
+    const response = await fetch(`http://localhost:8000/food-category/`, {
+      headers: { authentication: token },
+    });
+    const data = await response.json();
+    setCategories(data);
+  }
+
   useEffect(() => {
-    async function getCategory() {
-      const response = await fetch(`http://localhost:8000/food-category/`);
-      const data = await response.json();
-      setCategories(data);
-    }
     getCategory();
   }, []);
 

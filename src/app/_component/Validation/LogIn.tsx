@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Eye } from "lucide-react";
 import { EyeClosed } from "lucide-react";
 
-export function SignIn() {
+export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
@@ -46,18 +46,18 @@ export function SignIn() {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-[230px] text-black">
-      <div className="w-[480px] h-auto rounded-xl bg-[#ffffff]">
+    <div className="max-w-md mx-auto mt-[100px] text-black">
+      <div className="h-auto rounded-xl bg-[#ffffff]">
         <div className="box-border p-[32px]">
           <div>
-            <b className="text-[24px]">Create your account</b>
+            <b className="text-[24px]">Log in</b>
             <p className="text-[16px] text-gray-500">
-              Sign up to explore your favorite dishes.
+              Log in to enjoy your favorite dishes.
             </p>
           </div>
         </div>
         <form className="space-y-4">
-          <label className="pl-[70px] text-sm"></label>
+          <label className="pl-[20px] text-sm"></label>
           <Input
             className="block mx-auto w-[90%] p-4 h-10 border-2 border-black-500 rounded-lg"
             id="mail"
@@ -91,7 +91,7 @@ export function SignIn() {
             )}
             <div
               onClick={changeType}
-              className="absolute top-[9px] left-[400px] text-gray-200 hover:text-gray-500 "
+              className="absolute top-[9px] left-[370px] text-gray-200 hover:text-gray-500 "
             >
               {type == "text" && <Eye />}
               {type == "password" && <EyeClosed />}

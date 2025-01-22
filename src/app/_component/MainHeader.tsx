@@ -1,12 +1,5 @@
 "use client";
 import Link from "next/link";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
 
 export const MainHeader = () => {
   return (
@@ -18,18 +11,9 @@ export const MainHeader = () => {
           </div>
         </Link>
         <div className="flex gap-2">
-          <input />
+          <input className="rounded-lg" />
           <img src="/assets/MallButton.svg" alt="logo" />
-          <ClerkProvider>
-            <SignedOut>
-              <SignInButton>
-                <img src="/assets/LogInButton.svg" alt="logo" />
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </ClerkProvider>
+          <img src="/assets/LogInButton.svg" alt="logo" />
         </div>
       </div>
     </div>

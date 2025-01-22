@@ -4,17 +4,22 @@ import { useEffect, useState } from "react";
 import { MainCard } from "./MainCard";
 import { Category } from "../types";
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
 
 export function MainSection() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const { getToken } = useAuth();
+
+  async function getCategory() {
+    const token = await getToken();
+    const response = await fetch(`http://localhost:8000/food-category/`, {
+      headers: { authentication: token },
+    });
+    const data = await response.json();
+    setCategories(data);
+  }
 
   useEffect(() => {
-    async function getCategory() {
-      const response = await fetch(`http://localhost:8000/food-category/`);
-      const data = await response.json();
-      setCategories(data);
-      //   console.log(category);
-    }
     getCategory();
   }, []);
 

@@ -1,10 +1,10 @@
-import { Login } from "../_component/Validation/LogIn";
+import { Signin } from "../_component/Validation/SignIn";
 
 export default function Page() {
   return (
     <div className="flex justify-items-center items-center">
       <div className="w-[30%]">
-        <Login />
+        <Signin />
       </div>
 
       <div className="w-[70%]">

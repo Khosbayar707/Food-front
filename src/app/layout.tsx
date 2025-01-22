@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LayoutWrapper } from "./_component/LayoutWrapper";
 import { Raleway } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -35,7 +36,9 @@ export default function RootLayout({
         // className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
         className={`${raleway.variable} antialiased bg-gray-100`}
       >
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <ClerkProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </ClerkProvider>
       </body>
     </html>
   );

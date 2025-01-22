@@ -7,32 +7,26 @@ import { useSearchParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { Category } from "../types";
+import { useAuth } from "@clerk/nextjs";
 
 export function MainCategory() {
-  const [categories, setCategories] = useState<Category[]>([]);
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
+  const [categories, setCategories] = useState<Category[]>([]);
+  const { getToken } = useAuth();
 
-  useEffect(() => {
-    async function getCategory() {
-      const response = await fetch(`http://localhost:8000/food-category/`);
-      const data = await response.json();
-      setCategories(data);
-    }
-    getCategory();
-  }, [categories]);
-
-  async function addCategory(categoryName: string) {
+  async function getCategory() {
+    const token = await getToken();
     const response = await fetch(`http://localhost:8000/food-category/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ categoryName }),
+      headers: { authentication: token },
     });
     const data = await response.json();
-    setCategories([...categories, data]);
+    setCategories(data);
   }
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   return (
     <div>
