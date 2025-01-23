@@ -1,7 +1,7 @@
 export type Foods = {
   _id: string;
   foodName: string;
-  price: string;
+  price: number;
   image: string;
   ingredients: string;
   category: string;
@@ -19,4 +19,9 @@ export type Payment = {
   amount: number;
   status: "pending" | "processing" | "success" | "failed";
   email: string;
+};
+
+export type Order = {
+  food: string;
+  quantity: number;
 };

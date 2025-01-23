@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { MainCard } from "./MainCard";
 import { Category } from "../types";
-import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 
 export function MainSection() {

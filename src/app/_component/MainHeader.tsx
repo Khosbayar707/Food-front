@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { OrderSheet } from "./OrderSheet";
 
 export const MainHeader = () => {
   return (
@@ -12,7 +13,7 @@ export const MainHeader = () => {
         </Link>
         <div className="flex gap-2">
           <input className="rounded-lg" />
-          <img src="/assets/MallButton.svg" alt="logo" />
+          <OrderSheet />
           <img src="/assets/LogInButton.svg" alt="logo" />
         </div>
       </div>
