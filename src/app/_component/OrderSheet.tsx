@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShoppingCart } from "lucide-react";
 import { useSaveFoods } from "../OrderFoodContext";
+import { OrderCard } from "./OrderFoodCard";
 
 export function OrderSheet() {
   const { orderedFoods, setOrderedFoods } = useSaveFoods();
@@ -46,7 +47,9 @@ export function OrderSheet() {
                 <CardHeader>
                   <CardTitle>My card</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2"></CardContent>
+                <CardContent className="space-y-2">
+                  <OrderCard />
+                </CardContent>
                 <CardFooter>
                   <Button>Add food</Button>
                 </CardFooter>

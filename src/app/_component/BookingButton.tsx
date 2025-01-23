@@ -40,6 +40,7 @@ export function BookingButton({ food }: Props) {
   }, []);
 
   const [orderFood, setOrderFood] = useState("");
+  const [orderedFoods, setOrderedFoods] = useState<Foods[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
 
   async function addOrderItem() {
@@ -55,7 +56,7 @@ export function BookingButton({ food }: Props) {
     });
   }
 
-  // console.log(orderedFoods);
+  console.log(orderedFoods);
 
   return (
     <Dialog>
