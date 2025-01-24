@@ -15,6 +15,7 @@ import { Category, Foods } from "../types";
 import { Plus } from "lucide-react";
 import { Minus } from "lucide-react";
 import { useSaveOrder } from "../OrderDetailContext";
+import { useSaveFoods } from "../OrderFoodContext";
 
 type Props = {
   food: {
@@ -29,6 +30,7 @@ type Props = {
 
 export function BookingButton({ food }: Props) {
   const { order, setOrder } = useSaveOrder();
+  const { orderedFoods, setOrderedFoods } = useSaveFoods();
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
     async function getCategory() {
@@ -39,29 +41,35 @@ export function BookingButton({ food }: Props) {
     getCategory();
   }, []);
 
-  const [orderFood, setOrderFood] = useState("");
-  const [orderedFoods, setOrderedFoods] = useState<Foods[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
 
   async function addOrderItem() {
-    const response = await fetch(`http://localhost:8000/foodOrderItem/`, {
+    const response = await fetch(`http://localhost:8000/food-orders/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        food: orderFood,
-        quantity: quantity,
+        _id: food._id,
+        foodName: food.foodName,
+        price: food.price,
+        image: food.image,
+        ingredients: food.ingredients,
+        category: food.category,
       }),
     });
   }
 
-  console.log(orderedFoods);
-
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px]">
+        <button
+          // onClick={() => {
+          //   console.log(order, "order");
+          //   console.log(orderedFoods, "orderedFoods");
+          // }}
+          className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px]"
+        >
           <img
             src="/assets/BookingButton.svg"
             alt="logo"
@@ -133,6 +141,8 @@ export function BookingButton({ food }: Props) {
                         category: food.category,
                       },
                     ]);
+                    // console.log("ordered foods", orderedFoods);
+                    // console.log("order", order);
                   }}
                 >
                   Add card

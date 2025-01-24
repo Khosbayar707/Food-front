@@ -14,26 +14,13 @@ export function Category() {
   const category = searchParams.get("category");
   const { getToken } = useAuth();
 
-  async function getCategory() {
-    const token = await getToken();
-    const response = await fetch(`http://localhost:8000/food-category/`, {
-      headers: { authentication: token },
-    });
-    const data = await response.json();
-    setCategories(data);
-  }
-
-  useEffect(() => {
-    getCategory();
-  }, []);
-
   async function addCategory(categoryName: string) {
     const token = await getToken();
     const response = await fetch(`http://localhost:8000/food-category/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authentication: "token",
+        authentication: token,
       },
       body: JSON.stringify({ categoryName }),
     });

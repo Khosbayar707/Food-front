@@ -10,20 +10,48 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShoppingCart } from "lucide-react";
 import { useSaveFoods } from "../OrderFoodContext";
 import { OrderCard } from "./OrderFoodCard";
+import { useSaveOrder } from "../OrderDetailContext";
+import { Foods } from "../types";
+import { useAuth } from "@clerk/nextjs";
 
 export function OrderSheet() {
   const { orderedFoods, setOrderedFoods } = useSaveFoods();
+  const { order, setOrder } = useSaveOrder();
+  const { getToken } = useAuth();
+
+  let totalPrice = 0;
+  function handeTotalPrice() {
+    orderedFoods.map(
+      (food: Foods, index) =>
+        (totalPrice += orderedFoods[index].price * order[index].quantity)
+    );
+  }
+  handeTotalPrice();
+
+  async function addOrderItem() {
+    const token = await getToken();
+    const response = await fetch(`http://localhost:8000/food-order/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authentication: token,
+      },
+      body: JSON.stringify({
+        totalPrice: totalPrice,
+        foodOrderItems: order,
+      }),
+    });
+    console.log(order);
+  }
+  console.log("dsdsd", order, totalPrice);
 
   return (
     <Sheet>
@@ -48,10 +76,17 @@ export function OrderSheet() {
                   <CardTitle>My card</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <OrderCard />
+                  <OrderCard /> {/*order card here*/}
                 </CardContent>
                 <CardFooter>
-                  <Button>Add food</Button>
+                  <button
+                    className=" w-[90%] border-2 border-[#EF4444] rounded-xl p-2 text-[#EF4444]"
+                    onClick={() => {
+                      addOrderItem();
+                    }}
+                  >
+                    Add food
+                  </button>
                 </CardFooter>
               </Card>
             </TabsContent>

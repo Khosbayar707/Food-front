@@ -48,7 +48,7 @@ export function MainCard({ category }: Props) {
 
   useEffect(() => {
     getFood();
-  }, [foods]);
+  }, []);
 
   return (
     <div className="flex flex-wrap gap-6 justify-center items-center mx-auto">
