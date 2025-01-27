@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import {
   ColumnDef,
@@ -78,11 +79,6 @@ export function DataTable<TData, TValue>({
         />
       </div>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="ml-auto">
-            Columns
-          </Button>
-        </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {table
             .getAllColumns()

@@ -1,16 +1,14 @@
-import { columns, Payment } from "./Column";
+import { useState, useEffect } from "react";
+import { columns, Order } from "./Column";
 import { DataTable } from "./DataTable";
+import { Foods, Payment } from "@/app/types";
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-  ];
+async function getData(): Promise<Order[]> {
+  const response = await fetch(`http://localhost:8000/food-order/`, {
+    method: "GET",
+  });
+  const food = await response.json();
+  return food;
 }
 
 export default async function OrderTable() {

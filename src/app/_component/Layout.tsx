@@ -27,7 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
               <h2 className="text-sm">Food menu</h2>
             </div>
           </Link>
-          <Link href="/order">
+          <Link href="/orders">
             <div className="flex items-center gap-2 p-3 mt-6 rounded-full bg-gray-100 text-black hover:bg-black hover:text-white transition-all">
               <Truck />
               <h2 className="text-sm">Orders</h2>

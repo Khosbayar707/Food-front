@@ -44,7 +44,7 @@ export function BookingButton({ food }: Props) {
   const [quantity, setQuantity] = useState<number>(1);
 
   async function addOrderItem() {
-    const response = await fetch(`http://localhost:8000/food-orders/`, {
+    const response = await fetch(`http://localhost:8000/food-order/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

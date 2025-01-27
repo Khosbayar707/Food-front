@@ -21,10 +21,13 @@ import { OrderCard } from "./OrderFoodCard";
 import { useSaveOrder } from "../OrderDetailContext";
 import { Foods } from "../types";
 import { useAuth } from "@clerk/nextjs";
+import { PaymentCard } from "./PaymentCard";
+import { useState } from "react";
 
 export function OrderSheet() {
   const { orderedFoods, setOrderedFoods } = useSaveFoods();
   const { order, setOrder } = useSaveOrder();
+  // const [totalPrice, setTotalPrice] = useState();
   const { getToken } = useAuth();
 
   let totalPrice = 0;
@@ -33,6 +36,8 @@ export function OrderSheet() {
       (food: Foods, index) =>
         (totalPrice += orderedFoods[index].price * order[index].quantity)
     );
+    console.log("asdkfhaiusdj", totalPrice);
+    return totalPrice;
   }
   handeTotalPrice();
 
@@ -45,13 +50,14 @@ export function OrderSheet() {
         authentication: token,
       },
       body: JSON.stringify({
+        user: "6797346316427d98ec5a3f07",
         totalPrice: totalPrice,
         foodOrderItems: order,
       }),
     });
-    console.log(order);
+    // console.log(order);
   }
-  console.log("dsdsd", order, totalPrice);
+  // console.log("dsdsd", order, totalPrice);
 
   return (
     <Sheet>
@@ -70,7 +76,7 @@ export function OrderSheet() {
               <TabsTrigger value="account">Card</TabsTrigger>
               <TabsTrigger value="password">Order</TabsTrigger>
             </TabsList>
-            <TabsContent value="account">
+            <TabsContent value="account" className="space-y-4">
               <Card>
                 <CardHeader>
                   <CardTitle>My card</CardTitle>
@@ -81,11 +87,30 @@ export function OrderSheet() {
                 <CardFooter>
                   <button
                     className=" w-[90%] border-2 border-[#EF4444] rounded-xl p-2 text-[#EF4444]"
+                    // onClick={() => {
+                    //   addOrderItem();
+                    // }}
+                  >
+                    Add food
+                  </button>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Payment info</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <PaymentCard totalPrice={totalPrice} />
+                  {/*payment card here*/}
+                </CardContent>
+                <CardFooter>
+                  <button
+                    className=" w-[90%] border-2 border-[#EF4444] rounded-xl p-2 text-white bg-[#EF4444]"
                     onClick={() => {
                       addOrderItem();
                     }}
                   >
-                    Add food
+                    Check out
                   </button>
                 </CardFooter>
               </Card>
