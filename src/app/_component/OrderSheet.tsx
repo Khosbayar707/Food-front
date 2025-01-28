@@ -19,7 +19,7 @@ import { ShoppingCart } from "lucide-react";
 import { useSaveFoods } from "../OrderFoodContext";
 import { OrderCard } from "./OrderFoodCard";
 import { useSaveOrder } from "../OrderDetailContext";
-import { Foods } from "../types";
+import { Foods, Order } from "../types";
 import { useAuth } from "@clerk/nextjs";
 import { PaymentCard } from "./PaymentCard";
 import { useState } from "react";
@@ -27,6 +27,7 @@ import { useState } from "react";
 export function OrderSheet() {
   const { orderedFoods, setOrderedFoods } = useSaveFoods();
   const { order, setOrder } = useSaveOrder();
+  const [count, setCount] = useState(0);
   // const [totalPrice, setTotalPrice] = useState();
   const { getToken } = useAuth();
 
@@ -36,25 +37,27 @@ export function OrderSheet() {
       (food: Foods, index) =>
         (totalPrice += orderedFoods[index].price * order[index].quantity)
     );
-    console.log("asdkfhaiusdj", totalPrice);
     return totalPrice;
   }
   handeTotalPrice();
 
   async function addOrderItem() {
     const token = await getToken();
-    const response = await fetch(`http://localhost:8000/food-order/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authentication: token,
-      },
-      body: JSON.stringify({
-        user: "6797346316427d98ec5a3f07",
-        totalPrice: totalPrice,
-        foodOrderItems: order,
-      }),
-    });
+    if (token) {
+      const response = await fetch(`http://localhost:8000/food-order/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+        body: JSON.stringify({
+          user: "6797346316427d98ec5a3f07",
+          totalPrice: totalPrice,
+          foodOrderItems: order,
+        }),
+      });
+    }
+
     // console.log(order);
   }
   // console.log("dsdsd", order, totalPrice);
@@ -82,15 +85,11 @@ export function OrderSheet() {
                   <CardTitle>My card</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <OrderCard /> {/*order card here*/}
+                  <OrderCard count={count} setCount={setCount} />
+                  {/*order card here*/}
                 </CardContent>
                 <CardFooter>
-                  <button
-                    className=" w-[90%] border-2 border-[#EF4444] rounded-xl p-2 text-[#EF4444]"
-                    // onClick={() => {
-                    //   addOrderItem();
-                    // }}
-                  >
+                  <button className=" w-[90%] border-2 border-[#EF4444] rounded-xl p-2 text-[#EF4444] hover:bg-[#EF4444] hover:text-white">
                     Add food
                   </button>
                 </CardFooter>
@@ -105,7 +104,7 @@ export function OrderSheet() {
                 </CardContent>
                 <CardFooter>
                   <button
-                    className=" w-[90%] border-2 border-[#EF4444] rounded-xl p-2 text-white bg-[#EF4444]"
+                    className=" w-[90%] border-2 border-[#EF4444] rounded-xl p-2 text-white bg-[#EF4444] hover:bg-red-400"
                     onClick={() => {
                       addOrderItem();
                     }}

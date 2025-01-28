@@ -5,36 +5,16 @@ import { useSaveOrder } from "../OrderDetailContext";
 import { useSaveFoods } from "../OrderFoodContext";
 import { Foods } from "../types";
 import { useState } from "react";
-
-export function OrderCard() {
+type Props = {
+  count: number;
+  setCount: Function;
+};
+export function OrderCard({ count, setCount }: Props) {
   const { orderedFoods, setOrderedFoods } = useSaveFoods();
   const { order, setOrder } = useSaveOrder();
-  const [count, setCount] = useState(0);
-  // let totalPrice = 0;
 
-  // function handeTotalPrice() {
-  //   orderedFoods.map(
-  //     (food: Foods, index) =>
-  //       (totalPrice += orderedFoods[index].price * order[index].quantity)
-  //   );
-  // }
-  // handeTotalPrice();
-
-  // async function addOrderItem() {
-  //   const response = await fetch(`http://localhost:8000/food-order/`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       totalPrice: totalPrice,
-  //       foodOrderItems: order,
-  //     }),
-  //   });
-  // }
-  console.log("order----", order);
   return (
-    <div className="overflow-y-scroll h-[300px]">
+    <div className="overflow-y-scroll h-[250px]">
       {orderedFoods &&
         orderedFoods.map((food: Foods, index) => (
           <div
@@ -60,7 +40,7 @@ export function OrderCard() {
                     disabled={order[index].quantity <= 0}
                     onClick={() => {
                       order[index].quantity = order[index].quantity - 1;
-                      setCount(count + 1);
+                      setCount(count - 1);
                     }}
                   >
                     <Minus />

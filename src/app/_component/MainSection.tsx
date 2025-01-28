@@ -11,18 +11,20 @@ export function MainSection() {
 
   async function getCategory() {
     const token = await getToken();
-    const response = await fetch(`http://localhost:8000/food-category/`, {
-      headers: { authentication: token },
-    });
-    const data = await response.json();
-    setCategories(data);
+    if (token) {
+      const response = await fetch(`http://localhost:8000/food-category/`, {
+        headers: { authentication: token },
+      });
+      const data = await response.json();
+      setCategories(data);
+    }
   }
 
   useEffect(() => {
     getCategory();
   }, []);
 
-  async function addCategry() {
+  async function addCategory() {
     const foodName = prompt("Enter meal name");
     const response = await fetch(`http://localhost:8000/food/`, {
       method: "POST",

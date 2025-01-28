@@ -63,13 +63,7 @@ export function BookingButton({ food }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button
-          // onClick={() => {
-          //   console.log(order, "order");
-          //   console.log(orderedFoods, "orderedFoods");
-          // }}
-          className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px]"
-        >
+        <button className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px]">
           <img
             src="/assets/BookingButton.svg"
             alt="logo"
@@ -123,8 +117,9 @@ export function BookingButton({ food }: Props) {
               </div>
             </div>
             <DialogFooter>
-              <DialogClose className="bg-black text-white rounded-2xl ml-2 p-2 w-full mx-auto">
+              <DialogClose className="w-full">
                 <button
+                  className="bg-black text-white rounded-xl ml-2 p-2 w-[100%] mx-auto hover:bg-zinc-700"
                   onClick={() => {
                     setOrder([
                       ...order,
@@ -141,8 +136,6 @@ export function BookingButton({ food }: Props) {
                         category: food.category,
                       },
                     ]);
-                    // console.log("ordered foods", orderedFoods);
-                    // console.log("order", order);
                   }}
                 >
                   Add card
