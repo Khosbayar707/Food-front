@@ -40,8 +40,8 @@ export function MainSection() {
     <div>
       {categories &&
         categories.map((category: Category) => (
-          <div className="py-2 px-6 rounded-lg font-bold">
-            <div key={category?._id} className="mx-1 my-2">
+          <div key={category?._id} className="py-2 px-6 rounded-lg font-bold">
+            <div className="mx-1 my-2">
               <div className="text-white my-4 w-[90%] mx-auto text-xl hover:text-grey">
                 {category?.categoryName}
               </div>

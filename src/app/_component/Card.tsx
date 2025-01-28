@@ -53,12 +53,6 @@ export function Card({ category }: Props) {
     setFoods([...foods, data]);
   }
 
-  // async function deleteFoods(id: string) {
-  //   await fetch(`http://localhost:8000/food/${category?._id}`, {
-  //     method: "DELETE",
-  //   });
-  // }
-
   useEffect(() => {
     getFood();
   }, []);

@@ -49,7 +49,7 @@ export function FooterCategory() {
               href={`/${category?.categoryName}?category=${category?._id}`}
               key={category?._id}
             >
-              <div className="mx-1 cursor-pointer">
+              <div className="mx-1 cursor-pointer hover:text-gray-500">
                 {category?.categoryName}
               </div>
             </Link>
