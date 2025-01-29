@@ -25,8 +25,8 @@ export function OrderBar() {
 
   return (
     <div className="text-black">
-      {orderData.foodOrderItems &&
-        orderData.foodOrderItems?.map((items: any, index) => (
+      {orderData &&
+        orderData?.map((items: any, index) => (
           <div>
             {items?.foodOrderItems.map((item: any) => (
               <div>{item?.foodName}</div>
