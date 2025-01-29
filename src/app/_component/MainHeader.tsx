@@ -15,7 +15,9 @@ export const MainHeader = () => {
         <div className="flex gap-2">
           <input className="rounded-lg" />
           <OrderSheet />
-          <img src="/assets/LogInButton.svg" alt="logo" />
+          <Link href="/signin">
+            <img src="/assets/LogInButton.svg" alt="logo" />
+          </Link>
         </div>
       </div>
     </div>

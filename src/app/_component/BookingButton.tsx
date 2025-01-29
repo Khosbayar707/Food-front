@@ -122,21 +122,44 @@ export function BookingButton({ food }: Props) {
                 <button
                   className="bg-black text-white rounded-xl ml-2 p-2 w-[100%] mx-auto hover:bg-zinc-700"
                   onClick={() => {
-                    setOrder([
-                      ...order,
-                      { food: food.foodName, quantity: quantity },
-                    ]);
-                    setOrderedFoods([
-                      ...orderedFoods,
-                      {
-                        _id: food._id,
-                        foodName: food.foodName,
-                        price: food.price,
-                        image: food.image,
-                        ingredients: food.ingredients,
-                        category: food.category,
-                      },
-                    ]);
+                    // Check if food already exists in the order
+                    const existingOrderIndex = order.findIndex(
+                      (item) => item.food === food.foodName
+                    );
+                    const existingFoodIndex = orderedFoods.findIndex(
+                      (item) => item._id === food._id
+                    );
+
+                    if (existingOrderIndex !== -1) {
+                      // If food already exists, update quantity instead of adding a duplicate
+                      const updatedOrder = [...order];
+                      updatedOrder[existingOrderIndex].quantity += quantity;
+                      setOrder(updatedOrder);
+                    } else {
+                      // If food is not in order, add new entry
+                      setOrder([
+                        ...order,
+                        { food: food.foodName, quantity: quantity },
+                      ]);
+                    }
+
+                    if (existingFoodIndex !== -1) {
+                      // If food already exists in orderedFoods, no need to add again
+                      // (orderedFoods may store details without quantity updates)
+                    } else {
+                      // If food is not in orderedFoods, add it
+                      setOrderedFoods([
+                        ...orderedFoods,
+                        {
+                          _id: food._id,
+                          foodName: food.foodName,
+                          price: food.price,
+                          image: food.image,
+                          ingredients: food.ingredients,
+                          category: food.category,
+                        },
+                      ]);
+                    }
                   }}
                 >
                   Add card

@@ -16,6 +16,7 @@ export function FooterCategory() {
 
   async function getCategory() {
     const token = await getToken();
+    if (!token) return;
     const response = await fetch(`http://localhost:8000/food-category/`, {
       headers: { authentication: token },
     });
