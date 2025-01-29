@@ -28,6 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { OrderBar } from "./OrderDetailBar";
 
 export function OrderSheet() {
   const { orderedFoods } = useSaveFoods();
@@ -69,7 +70,12 @@ export function OrderSheet() {
     <>
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetTrigger onClick={() => setIsSheetOpen(true)}>
-          <img src="/assets/MallButton.svg" alt="logo" />
+          <div className="relative">
+            <img src="/assets/MallButton.svg" alt="logo" />
+            <div className="bg-red-500 w-4 h-4 rounded-full text-white text-xs flex items-center justify-center absolute top-[-4px] right-[-9px]">
+              {order.length}
+            </div>
+          </div>
         </SheetTrigger>
         <SheetContent className="w-[400px] sm:w-[540px]">
           <SheetHeader>
@@ -123,7 +129,10 @@ export function OrderSheet() {
                   <CardHeader>
                     <CardTitle>Password</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-2">hi order</CardContent>
+                  <CardContent className="space-y-2">
+                    <OrderBar />
+                    {/*order history here*/}
+                  </CardContent>
                   <CardFooter>
                     <Button>Save password</Button>
                   </CardFooter>

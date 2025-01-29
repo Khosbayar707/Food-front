@@ -59,6 +59,7 @@ export function BookingButton({ food }: Props) {
       }),
     });
   }
+  console.log();
 
   return (
     <Dialog>
@@ -123,7 +124,7 @@ export function BookingButton({ food }: Props) {
                   onClick={() => {
                     setOrder([
                       ...order,
-                      { food: food._id, quantity: quantity },
+                      { food: food.foodName, quantity: quantity },
                     ]);
                     setOrderedFoods([
                       ...orderedFoods,

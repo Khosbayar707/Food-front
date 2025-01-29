@@ -7,7 +7,7 @@ import { MainFooter } from "./MainFooter";
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminPage = pathname.startsWith("/admin");
-  const isOrderPage = pathname.startsWith("/order");
+  const isOrderPage = pathname.startsWith("/orders");
   const isLoginPage = pathname.startsWith("/login");
   const isSigninPage = pathname.startsWith("/signin");
   return (
