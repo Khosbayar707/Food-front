@@ -6,39 +6,15 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Category } from "../types";
 import { useAuth } from "@clerk/nextjs";
+import { useAuthFetch } from "../useFetchData";
 
 export function FooterCategory() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
 
-  const [categories, setCategories] = useState<Category[]>([]);
   const { getToken } = useAuth();
-
-  async function getCategory() {
-    const token = await getToken();
-    if (!token) return;
-    const response = await fetch(`http://localhost:8000/food-category/`, {
-      headers: { authentication: token },
-    });
-    const data = await response.json();
-    setCategories(data);
-  }
-
-  useEffect(() => {
-    getCategory();
-  }, []);
-
-  async function addCategory(categoryName: string) {
-    const response = await fetch(`http://localhost:8000/food-category/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ categoryName }),
-    });
-    const data = await response.json();
-    setCategories([...categories, data]);
-  }
+  const { isLoading, data: categories } = useAuthFetch("food-category");
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div>

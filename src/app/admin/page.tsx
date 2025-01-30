@@ -33,7 +33,9 @@ import { Section } from "../_component/Section";
 export default function Page() {
   return (
     <Layout>
-      <Pfp />
+      <div className="relative">
+        <Pfp />
+      </div>
       <Category />
       {/* {!category ? <Section /> : <div></div>} */}
       <Section />

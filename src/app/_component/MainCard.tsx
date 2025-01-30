@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Foods } from "../types";
 import { BookingButton } from "./BookingButton";
+import { useAuth } from "@clerk/nextjs";
 
 type Category = {
   _id: string;
@@ -14,41 +15,21 @@ type Props = {
 
 export function MainCard({ category }: Props) {
   const [foods, setFoods] = useState<Foods[]>([]);
-  const [newFoodName, setNewFoodName] = useState("");
-  const [newPrice, setPrice] = useState("");
-  const [newIngredients, setNewIngredients] = useState("");
+  const { getToken } = useAuth();
 
   async function getFood() {
+    const token = await getToken();
+    if (!token) return;
     const response = await fetch(`http://localhost:8000/food/${category?._id}`);
     const data = await response.json();
     setFoods(data);
   }
-  async function addFoods() {
-    const response = await fetch(`http://localhost:8000/food/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        foodName: newFoodName,
-        price: newPrice,
-        ingredients: newIngredients,
-        category: category._id,
-      }),
-    });
-    const data = await response.json();
-    setFoods([...foods, data]);
-  }
-
-  // async function deleteFoods(id: string) {
-  //   await fetch(`http://localhost:8000/food/${category?._id}`, {
-  //     method: "DELETE",
-  //   });
-  // }
 
   useEffect(() => {
     getFood();
   }, []);
+
+  console.log(category?._id);
 
   return (
     <div className="flex flex-wrap gap-6 justify-center items-center mx-auto">
@@ -72,7 +53,6 @@ export function MainCard({ category }: Props) {
                 </p>
                 <p className="text-sm text-gray-500">${food?.price}</p>
               </div>
-
               <p className="text-[12px] text-gray-600 line-clamp-2">
                 {food?.ingredients}
               </p>

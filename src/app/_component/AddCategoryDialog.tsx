@@ -27,7 +27,7 @@ export function AddCategoryDialog({ onAddCategory }: AddCategoryDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="rounded-full bg-red-500 text-[12px] text-white w-6 h-6">
+        <div className="rounded-full bg-red-500 text-[12px] text-white w-6 h-6 hover:bg-red-300">
           <Plus />
         </div>
       </DialogTrigger>

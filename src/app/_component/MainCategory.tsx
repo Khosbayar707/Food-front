@@ -8,25 +8,15 @@ import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { Category } from "../types";
 import { useAuth } from "@clerk/nextjs";
+import { useAuthFetch } from "../useFetchData";
 
 export function MainCategory() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
-  const [categories, setCategories] = useState<Category[]>([]);
+
   const { getToken } = useAuth();
-
-  async function getCategory() {
-    const token = await getToken();
-    const response = await fetch(`http://localhost:8000/food-category/`, {
-      headers: { authentication: token },
-    });
-    const data = await response.json();
-    setCategories(data);
-  }
-
-  useEffect(() => {
-    getCategory();
-  }, []);
+  const { isLoading, data: categories } = useAuthFetch("food-category");
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div>

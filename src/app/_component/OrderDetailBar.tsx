@@ -14,7 +14,7 @@ export function OrderBar() {
       if (!response.ok) throw new Error("Failed to fetch orders");
 
       const data = await response.json();
-      setOrderData(data); // Set only when data is valid
+      setOrderData(data);
     } catch (err) {
       console.error(err);
       setError(true);
@@ -31,15 +31,21 @@ export function OrderBar() {
     <div className="text-black">
       {orderData.length > 0 ? (
         orderData.map((order: any) => (
-          <div key={order._id} className="border p-2 my-2">
-            <p>Order ID: {order._id}</p>
+          <div key={order._id} className="border p-2 my-2 text-sm text-gray">
+            <p>
+              Total Price: ${order.totalPrice}
+              <p>(ID: {order._id})</p>
+            </p>
             <p>Status: {order.status}</p>
-            <p>Total Price: ${order.totalPrice}</p>
             <div className="ml-4">
               <p className="font-bold">Food Items:</p>
               {order.foodOrderItems.map((item: any) => (
-                <div key={item._id} className="pl-2">
-                  🍽 {item.foodName}
+                <div key={item._id} className="pl-2 flex justify-between">
+                  <p className="flex gap-2">
+                    <img src="/assets/foodicon.svg" />
+                    {item.food}
+                  </p>
+                  <p>x {item.quantity}</p>
                 </div>
               ))}
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -11,7 +11,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Category, Foods } from "../types";
 import { Plus } from "lucide-react";
 import { Minus } from "lucide-react";
 import { useSaveOrder } from "../OrderDetailContext";
@@ -31,40 +30,12 @@ type Props = {
 export function BookingButton({ food }: Props) {
   const { order, setOrder } = useSaveOrder();
   const { orderedFoods, setOrderedFoods } = useSaveFoods();
-  const [categories, setCategories] = useState<Category[]>([]);
-  useEffect(() => {
-    async function getCategory() {
-      const response = await fetch(`http://localhost:8000/food-category/`);
-      const data = await response.json();
-      setCategories(data);
-    }
-    getCategory();
-  }, []);
-
   const [quantity, setQuantity] = useState<number>(1);
-
-  async function addOrderItem() {
-    const response = await fetch(`http://localhost:8000/food-order/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id: food._id,
-        foodName: food.foodName,
-        price: food.price,
-        image: food.image,
-        ingredients: food.ingredients,
-        category: food.category,
-      }),
-    });
-  }
-  console.log();
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px]">
+        <button className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px] hover:w-[60px] hover:h-[60px] hover:top-[70px] hover:left-[190px]">
           <img
             src="/assets/BookingButton.svg"
             alt="logo"
@@ -118,11 +89,10 @@ export function BookingButton({ food }: Props) {
               </div>
             </div>
             <DialogFooter>
-              <DialogClose className="w-full">
+              <DialogClose asChild className="w-full">
                 <button
                   className="bg-black text-white rounded-xl ml-2 p-2 w-[100%] mx-auto hover:bg-zinc-700"
                   onClick={() => {
-                    // Check if food already exists in the order
                     const existingOrderIndex = order.findIndex(
                       (item) => item.food === food.foodName
                     );
@@ -131,12 +101,10 @@ export function BookingButton({ food }: Props) {
                     );
 
                     if (existingOrderIndex !== -1) {
-                      // If food already exists, update quantity instead of adding a duplicate
                       const updatedOrder = [...order];
                       updatedOrder[existingOrderIndex].quantity += quantity;
                       setOrder(updatedOrder);
                     } else {
-                      // If food is not in order, add new entry
                       setOrder([
                         ...order,
                         { food: food.foodName, quantity: quantity },
@@ -144,10 +112,7 @@ export function BookingButton({ food }: Props) {
                     }
 
                     if (existingFoodIndex !== -1) {
-                      // If food already exists in orderedFoods, no need to add again
-                      // (orderedFoods may store details without quantity updates)
                     } else {
-                      // If food is not in orderedFoods, add it
                       setOrderedFoods([
                         ...orderedFoods,
                         {

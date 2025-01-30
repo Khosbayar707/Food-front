@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import { OrderSheet } from "./OrderSheet";
-import { useSaveOrder } from "../OrderDetailContext";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Pfp } from "./pfp";
 
 export const MainHeader = () => {
   return (
@@ -15,9 +16,7 @@ export const MainHeader = () => {
         <div className="flex gap-2">
           <input className="rounded-lg" />
           <OrderSheet />
-          <Link href="/signin">
-            <img src="/assets/LogInButton.svg" alt="logo" />
-          </Link>
+          <Pfp />
         </div>
       </div>
     </div>

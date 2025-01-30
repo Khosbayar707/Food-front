@@ -9,16 +9,11 @@ import Image from "next/image";
 
 export const Pfp = () => {
   return (
-    <div className="fixed top-5 right-10">
+    <div className="relative top-1 left-4">
       <SignedOut>
         <SignInButton>
           <button className="w-6">
-            <Image
-              src={`assets/LogInButton.svg`}
-              alt="asdfjasdf"
-              width={1000}
-              height={1000}
-            />
+            <Image src={`assets/LogInButton.svg`} alt="login" />
           </button>
         </SignInButton>
       </SignedOut>

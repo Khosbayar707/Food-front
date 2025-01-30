@@ -13,6 +13,7 @@ import { Plus } from "lucide-react";
 import { EditFoodDialog } from "./EditFoodDialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Foods } from "../types";
+import { useAuth } from "@clerk/nextjs";
 
 type Category = {
   _id: string;
@@ -29,28 +30,45 @@ export function Card({ category }: Props) {
   const [newPrice, setPrice] = useState("");
   const [newIngredients, setNewIngredients] = useState("");
   const [newImage, setNewImage] = useState("");
+  const { getToken } = useAuth();
 
   async function getFood() {
-    const response = await fetch(`http://localhost:8000/food/${category?._id}`);
-    const data = await response.json();
-    setFoods(data);
+    const token = await getToken();
+    if (token) {
+      const response = await fetch(
+        `http://localhost:8000/food/${category?._id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authentication: token,
+          },
+        }
+      );
+      const data = await response.json();
+      setFoods(data);
+    }
   }
+
   async function addFoods() {
-    const response = await fetch(`http://localhost:8000/food/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        foodName: newFoodName,
-        price: newPrice,
-        ingredients: newIngredients,
-        category: category._id,
-        image: newImage,
-      }),
-    });
-    const data = await response.json();
-    setFoods([...foods, data]);
+    const token = await getToken();
+    if (token) {
+      const response = await fetch(`http://localhost:8000/food/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+        body: JSON.stringify({
+          foodName: newFoodName,
+          price: newPrice,
+          ingredients: newIngredients,
+          category: category._id,
+          image: newImage,
+        }),
+      });
+      const data = await response.json();
+      setFoods([...foods, data]);
+    }
   }
 
   useEffect(() => {

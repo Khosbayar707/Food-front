@@ -19,9 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import { Category } from "../types";
 import { useAuth } from "@clerk/nextjs";
+import { useAuthFetch } from "../useFetchData";
 
 type Props = {
   food: {
@@ -35,7 +35,6 @@ type Props = {
 };
 
 export function EditFoodDialog({ food }: Props) {
-  const [newFood, setFood] = useState(food);
   const [newFoodName, setNewFoodName] = useState<string>(food.foodName);
   const [newFoodIngredients, setNewFoodIngredients] = useState<string>(
     food.ingredients
@@ -44,58 +43,47 @@ export function EditFoodDialog({ food }: Props) {
   const [newPrice, setNewPrice] = useState<string>(food.price);
   const [newImage, setNewImage] = useState<string>(food.image);
 
-  // useEffect(() => {
-  //   setNewFoodName(food.foodName);
-  //   setNewFoodIngredients(food.ingredients);
-  //   setNewCategory(food.category);
-  //   setNewPrice(food.price);
-  // }, [food]);
+  const { getToken } = useAuth();
+  const { isLoading, data: categories } = useAuthFetch("food-category");
+  if (isLoading) return <div>Loading...</div>;
 
   async function deleteFoods() {
+    const token = await getToken();
+    if (!token) return;
     const response = await fetch(`http://localhost:8000/food/${food._id}`, {
       method: "DELETE",
     });
     if (response.ok) {
     } else {
+      ("error");
     }
   }
 
   async function editFoods() {
-    const response = await fetch(`http://localhost:8000/food/${food._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        foodName: newFoodName,
-        price: newPrice,
-        ingredients: newFoodIngredients,
-        category: newCategory,
-        image: newImage,
-      }),
-    });
+    const token = await getToken();
+    if (token) {
+      const response = await fetch(`http://localhost:8000/food/${food._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+        body: JSON.stringify({
+          foodName: newFoodName,
+          price: newPrice,
+          ingredients: newFoodIngredients,
+          category: newCategory,
+          image: newImage,
+        }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-    } else {
-      console.error("Failed to update the food item");
+      if (response.ok) {
+        const data = await response.json();
+      } else {
+        console.error("Failed to update the food item");
+      }
     }
   }
-
-  const [categories, setCategories] = useState<Category[]>([]);
-  const { getToken } = useAuth();
-  async function getCategory() {
-    const token = await getToken();
-    const response = await fetch(`http://localhost:8000/food-category/`, {
-      headers: { authentication: token },
-    });
-    const data = await response.json();
-    setCategories(data);
-  }
-
-  useEffect(() => {
-    getCategory();
-  }, []);
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -128,7 +116,7 @@ export function EditFoodDialog({ food }: Props) {
     <Dialog>
       <DialogTrigger asChild>
         <button
-          className="absolute top-[80px] left-[200px] rounded-full bg-white text-[#EF4444] p-2"
+          className="absolute top-[80px] left-[200px] rounded-full bg-white text-[#EF4444] p-2 hover:bg-[#EF4444] hover:text-white"
           onClick={() => {
             setNewFoodName(food.foodName);
             setNewFoodIngredients(food.ingredients);

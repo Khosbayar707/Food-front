@@ -45,24 +45,22 @@ export function OrderSheet() {
 
   async function addOrderItem() {
     const token = await getToken();
-    if (token) {
-      const response = await fetch(`http://localhost:8000/food-order/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authentication: token,
-        },
-        body: JSON.stringify({
-          user: "6797346316427d98ec5a3f07",
-          totalPrice,
-          foodOrderItems: order,
-        }),
-      });
-
-      if (response.ok) {
-        setIsSheetOpen(false);
-        setTimeout(() => setIsSuccessModalOpen(true), 300);
-      }
+    if (!token) return;
+    const response = await fetch(`http://localhost:8000/food-order/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authentication: token,
+      },
+      body: JSON.stringify({
+        user: "6797346316427d98ec5a3f07",
+        totalPrice,
+        foodOrderItems: order,
+      }),
+    });
+    if (response.ok) {
+      setIsSheetOpen(false);
+      setTimeout(() => setIsSuccessModalOpen(true), 300);
     }
   }
 
