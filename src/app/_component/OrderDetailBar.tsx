@@ -38,7 +38,7 @@ export function OrderBar() {
             </p>
             <p>Status: {order.status}</p>
             <div className="ml-4">
-              <p className="font-bold">Food Items:</p>
+              <p className="font-bold">Dishes:</p>
               {order.foodOrderItems.map((item: any) => (
                 <div key={item._id} className="pl-2 flex justify-between">
                   <p className="flex gap-2">

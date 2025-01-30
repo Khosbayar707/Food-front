@@ -35,7 +35,7 @@ export function BookingButton({ food }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px] hover:w-[60px] hover:h-[60px] hover:top-[70px] hover:left-[190px]">
+        <button className="absolute top-[80px] left-[200px] rounded-full text-[#EF4444] p-2 w-[44px] h-[44px] hover:w-[60px] hover:h-[60px] hover:top-[70px] hover:left-[190px] transition-all duration-300 ease-in-out">
           <img
             src="/assets/BookingButton.svg"
             alt="logo"

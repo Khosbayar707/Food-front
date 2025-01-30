@@ -51,24 +51,23 @@ export function Card({ category }: Props) {
 
   async function addFoods() {
     const token = await getToken();
-    if (token) {
-      const response = await fetch(`http://localhost:8000/food/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authentication: token,
-        },
-        body: JSON.stringify({
-          foodName: newFoodName,
-          price: newPrice,
-          ingredients: newIngredients,
-          category: category._id,
-          image: newImage,
-        }),
-      });
-      const data = await response.json();
-      setFoods([...foods, data]);
-    }
+    if (!token) return;
+    const response = await fetch(`http://localhost:8000/food/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authentication: token,
+      },
+      body: JSON.stringify({
+        foodName: newFoodName,
+        price: newPrice,
+        ingredients: newIngredients,
+        category: category._id,
+        image: newImage,
+      }),
+    });
+    const data = await response.json();
+    setFoods([...foods, data]);
   }
 
   useEffect(() => {
