@@ -34,19 +34,18 @@ export function Card({ category }: Props) {
 
   async function getFood() {
     const token = await getToken();
-    if (token) {
-      const response = await fetch(
-        `http://localhost:8000/food/${category?._id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authentication: token,
-          },
-        }
-      );
-      const data = await response.json();
-      setFoods(data);
-    }
+    if (!token) return;
+    const response = await fetch(
+      `http://localhost:8000/food/${category?._id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+      }
+    );
+    const data = await response.json();
+    setFoods(data);
   }
 
   async function addFoods() {
@@ -102,11 +101,11 @@ export function Card({ category }: Props) {
   };
 
   return (
-    <div className="flex gap-6 flex-wrap">
+    <div className="flex gap-6 flex-wrap justify-center items-center">
       <Dialog>
         <DialogTrigger className="w-[270px] h-[250px] justify-self-center rounded-lg border-2 border-[#EF4444] border-dashed border-spacing-[10px]">
           <div className="justify-items-center">
-            <div className="rounded-full bg-[#EF4444] text-[12px] text-background justify-items-center">
+            <div className="rounded-full bg-[#EF4444] text-[12px] text-background">
               <Plus />
             </div>
             <h1> Add new Dish to {category?.categoryName}</h1>

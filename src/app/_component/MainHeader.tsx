@@ -9,7 +9,7 @@ export const MainHeader = () => {
     <div className="border-b bg-primary text-white">
       <div className="container flex items-center justify-between py-2 mx-auto w-[80%]">
         <Link href="/">
-          <div className="items-center ">
+          <div className="items-center">
             <img src="/assets/MainLogo.svg" alt="logo" />
           </div>
         </Link>

@@ -20,7 +20,15 @@ export function MainCard({ category }: Props) {
   async function getFood() {
     const token = await getToken();
     if (!token) return;
-    const response = await fetch(`http://localhost:8000/food/${category?._id}`);
+    const response = await fetch(
+      `http://localhost:8000/food/${category?._id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+      }
+    );
     const data = await response.json();
     setFoods(data);
   }
@@ -28,8 +36,6 @@ export function MainCard({ category }: Props) {
   useEffect(() => {
     getFood();
   }, []);
-
-  console.log(category?._id);
 
   return (
     <div className="flex flex-wrap gap-6 justify-center items-center mx-auto">

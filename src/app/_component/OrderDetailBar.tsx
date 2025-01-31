@@ -1,18 +1,24 @@
 "use client";
 
+import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 export function OrderBar() {
   const [orderData, setOrderData] = useState([]);
   const [error, setError] = useState(false);
+  const { getToken } = useAuth();
 
   async function getOrderData() {
+    const token = await getToken();
     try {
-      const response = await fetch(
-        `http://localhost:8000/food-order/6797346316427d98ec5a3f07`
-      );
+      if (!token) return;
+      const response = await fetch(`http://localhost:8000/food-order/`, {
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+      });
       if (!response.ok) throw new Error("Failed to fetch orders");
-
       const data = await response.json();
       setOrderData(data);
     } catch (err) {
@@ -28,7 +34,7 @@ export function OrderBar() {
   if (error) return <div className="text-red-500">Failed to load orders.</div>;
 
   return (
-    <div className="text-black">
+    <div className="text-black overflow-y-scroll h-[90%]">
       {orderData.length > 0 ? (
         orderData.map((order: any) => (
           <div key={order._id} className="border p-2 my-2 text-sm text-gray">

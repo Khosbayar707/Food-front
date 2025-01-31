@@ -27,7 +27,7 @@ type Props = {
   food: {
     _id: string;
     foodName: string;
-    price: string;
+    price: number;
     image: string;
     ingredients: string;
     category: string;
@@ -40,7 +40,7 @@ export function EditFoodDialog({ food }: Props) {
     food.ingredients
   );
   const [newCategory, setNewCategory] = useState<string>(food.category);
-  const [newPrice, setNewPrice] = useState<string>(food.price);
+  const [newPrice, setNewPrice] = useState<number>(food.price);
   const [newImage, setNewImage] = useState<string>(food.image);
 
   const { getToken } = useAuth();
@@ -61,27 +61,26 @@ export function EditFoodDialog({ food }: Props) {
 
   async function editFoods() {
     const token = await getToken();
-    if (token) {
-      const response = await fetch(`http://localhost:8000/food/${food._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authentication: token,
-        },
-        body: JSON.stringify({
-          foodName: newFoodName,
-          price: newPrice,
-          ingredients: newFoodIngredients,
-          category: newCategory,
-          image: newImage,
-        }),
-      });
+    if (!token) return;
+    const response = await fetch(`http://localhost:8000/food/${food._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authentication: token,
+      },
+      body: JSON.stringify({
+        foodName: newFoodName,
+        price: newPrice,
+        ingredients: newFoodIngredients,
+        category: newCategory,
+        image: newImage,
+      }),
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-      } else {
-        console.error("Failed to update the food item");
-      }
+    if (response.ok) {
+      const data = await response.json();
+    } else {
+      console.error("Failed to update the food item");
     }
   }
 

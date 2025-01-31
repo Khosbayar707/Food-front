@@ -7,8 +7,10 @@ import { EditFoodDialog } from "@/app/_component/EditFoodDialog";
 import { Foods } from "@/app/types";
 import Layout from "@/app/_component/Layout";
 import { Category } from "@/app/_component/Category";
+import { useAuth } from "@clerk/nextjs";
 
 export default function CategoryPage() {
+  const { getToken } = useAuth();
   const { id } = useParams();
   const searchParams = useSearchParams();
   const query = searchParams.get("category") || id;
@@ -16,9 +18,14 @@ export default function CategoryPage() {
 
   useEffect(() => {
     async function fetchFoods() {
-      const response = await fetch(
-        `http://localhost:8000/food?category=${query}`
-      );
+      const token = await getToken();
+      if (!token) return;
+      const response = await fetch(`http://localhost:8000/food/${query}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+      });
       const data = await response.json();
       setFoods(data);
     }

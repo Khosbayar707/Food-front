@@ -12,9 +12,9 @@ export const Pfp = () => {
     <div className="relative top-1 left-4">
       <SignedOut>
         <SignInButton>
-          <button className="w-6 h-6">
-            <Image
-              src="assets/LogInButton.svg"
+          <button className="w-[36px] h-[36px]">
+            <img
+              src="/assets/LogInButton.svg"
               alt="login"
               className="w-full h-full"
             />

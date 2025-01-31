@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Foods } from "@/app/types";
 import { MainCategory } from "@/app/_component/MainCategory";
 import { BookingButton } from "@/app/_component/BookingButton";
+import { useAuth } from "@clerk/nextjs";
 
 export default function CategoryPage() {
+  const { getToken } = useAuth();
   const { id } = useParams();
   const searchParams = useSearchParams();
   const query = searchParams.get("category") || id;
@@ -15,9 +17,14 @@ export default function CategoryPage() {
 
   useEffect(() => {
     async function fetchFoods() {
-      const response = await fetch(
-        `http://localhost:8000/food?category=${query}`
-      );
+      const token = await getToken();
+      if (!token) return;
+      const response = await fetch(`http://localhost:8000/food/${query}`, {
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+      });
       const data = await response.json();
       setFoods(data);
     }
@@ -35,12 +42,7 @@ export default function CategoryPage() {
       </div>
       <MainCategory />
       <div className="p-6 rounded-lg">
-        <h2 className="text-xl font-bold">Category dishes</h2>
-        <Link href="/">
-          <button className="text-white px-4 py-2 rounded mt-2">
-            Back to Main Page
-          </button>
-        </Link>
+        <h2 className="text-xl font-bold text-white">Category dishes</h2>
         <div className="flex flex-wrap justify-center gap-4 my-4 mx-auto">
           {foods &&
             foods.map((food: Foods) => (
@@ -70,6 +72,11 @@ export default function CategoryPage() {
               </div>
             ))}
         </div>
+        <Link href="/">
+          <button className="text-white px-4 py-2 rounded mt-2 bg-primary hover:bg-white hover:text-black">
+            Back to Main Page
+          </button>
+        </Link>
       </div>
     </div>
   );

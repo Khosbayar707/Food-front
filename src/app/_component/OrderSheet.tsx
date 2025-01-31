@@ -125,15 +125,12 @@ export function OrderSheet() {
               <TabsContent value="password">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Password</CardTitle>
+                    <CardTitle>Order history</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-2">
+                  <CardContent className="space-y-2 h-[700px] overflow-hidden">
                     <OrderBar />
                     {/*order history here*/}
                   </CardContent>
-                  <CardFooter>
-                    <Button>Save password</Button>
-                  </CardFooter>
                 </Card>
               </TabsContent>
             </Tabs>
@@ -142,18 +139,19 @@ export function OrderSheet() {
       </Sheet>
       <Dialog open={isSuccessModalOpen} onOpenChange={setIsSuccessModalOpen}>
         <DialogContent className="text-center">
-          <DialogHeader>
-            <DialogTitle className="text-green-600">
-              Successfully Checked Out!
-            </DialogTitle>
-          </DialogHeader>
-          <p>Your order has been placed.</p>
-          <button
-            className="mt-4 px-4 py-2 bg-[#EF4444] text-white rounded-md"
-            onClick={() => setIsSuccessModalOpen(false)}
-          >
-            OK
-          </button>
+          <DialogHeader></DialogHeader>
+          <p>Your order has been successfully placed!</p>
+          <div className="flex justify-center items-center">
+            <img src="/assets/illustration.svg" alt="photo" />
+          </div>
+          <div className="flex justify-center items-center">
+            <button
+              className="mt-4 px-4 py-2 bg-[#EF4444] text-white rounded-full w-[50%] hover:bg-red-700"
+              onClick={() => setIsSuccessModalOpen(false)}
+            >
+              Close
+            </button>
+          </div>
         </DialogContent>
       </Dialog>
     </>

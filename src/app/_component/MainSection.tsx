@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { MainCard } from "./MainCard";
 import { Category } from "../types";
 import { useAuth } from "@clerk/nextjs";

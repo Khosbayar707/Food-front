@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FooterCategory } from "./FooterCategory";
 
 export function MainFooter() {
@@ -27,7 +28,10 @@ export function MainFooter() {
             <div className="text-[#71717A]">
               NOMNOM
               <div className="text-white mt-[20px]">
-                <p className="mb-[18px]">Home</p>
+                <Link href="/">
+                  <p className="mb-[18px]">Home</p>
+                </Link>
+
                 <p className="mb-[18px]">Contact us</p>
                 <p className="mb-[18px]">Delivery zone</p>
               </div>
