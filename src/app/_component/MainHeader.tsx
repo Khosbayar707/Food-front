@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { OrderSheet } from "./OrderSheet";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Pfp } from "./pfp";
+import Pfp from "./pfp";
 
 export const MainHeader = () => {
   return (

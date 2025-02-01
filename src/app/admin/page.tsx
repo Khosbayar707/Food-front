@@ -2,7 +2,7 @@
 
 import { Category } from "../_component/Category";
 import Layout from "../_component/Layout";
-import { Pfp } from "../_component/pfp";
+import Pfp from "../_component/pfp";
 import { Section } from "../_component/Section";
 // type Props = {
 //   searchParams: Promise<{ category: string }>;

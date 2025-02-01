@@ -1,13 +1,41 @@
 import {
+  useUser,
+  useAuth,
   SignedIn,
   SignedOut,
-  SignIn,
   SignInButton,
   UserButton,
 } from "@clerk/nextjs";
-import Image from "next/image";
 
-export const Pfp = () => {
+export default function Pfp() {
+  const { user } = useUser();
+  const { getToken } = useAuth();
+
+  // const sendUserData = async () => {
+  //   if (!user) return;
+
+  //   try {
+  //     const token = await getToken();
+
+  //     const response = await fetch(`http://localhost:8000/user`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         userId: user.id,
+  //         email: user.primaryEmailAddress?.emailAddress,
+  //       }),
+  //     });
+
+  //     const data = await response.json();
+  //     console.log("User saved:", data);
+  //   } catch (error) {
+  //     console.error("Error sending user data:", error);
+  //   }
+  // };
+
   return (
     <div className="relative top-1 left-4">
       <SignedOut>
@@ -21,9 +49,26 @@ export const Pfp = () => {
           </button>
         </SignInButton>
       </SignedOut>
+
       <SignedIn>
-        <UserButton />
+        <div className="flex items-center gap-2">
+          {user && (
+            <div className="text-sm">
+              <p className="font-semibold">
+                {user.primaryEmailAddress?.emailAddress}
+              </p>
+              <p className="text-gray-500">ID: {user.id}</p>
+            </div>
+          )}
+          <UserButton />
+          {/* <button
+            onClick={sendUserData}
+            className="px-3 py-1 bg-blue-500 text-white rounded-md"
+          >
+            Send to Backend
+          </button> */}
+        </div>
       </SignedIn>
     </div>
   );
-};
+}
