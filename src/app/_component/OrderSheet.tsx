@@ -31,8 +31,8 @@ import {
 import { OrderBar } from "./OrderDetailBar";
 
 export function OrderSheet() {
-  const { orderedFoods } = useSaveFoods();
-  const { order } = useSaveOrder();
+  const { orderedFoods, setOrderedFoods } = useSaveFoods();
+  const { order, setOrder } = useSaveOrder();
   const [count, setCount] = useState(0);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -46,6 +46,7 @@ export function OrderSheet() {
   async function addOrderItem() {
     const token = await getToken();
     if (!token) return;
+
     const response = await fetch(`http://localhost:8000/food-order/`, {
       method: "POST",
       headers: {
@@ -58,7 +59,11 @@ export function OrderSheet() {
         foodOrderItems: order,
       }),
     });
+
     if (response.ok) {
+      setOrderedFoods([]);
+      setOrder([]);
+
       setIsSheetOpen(false);
       setTimeout(() => setIsSuccessModalOpen(true), 300);
     }
