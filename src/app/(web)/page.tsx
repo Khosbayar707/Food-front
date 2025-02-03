@@ -1,5 +1,3 @@
-"use client";
-
 import { MainCategory } from "../_component/MainCategory";
 import { MainSection } from "../_component/MainSection";
 

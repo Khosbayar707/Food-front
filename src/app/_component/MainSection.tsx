@@ -6,7 +6,6 @@ import { useAuth } from "@clerk/nextjs";
 import { useAuthFetch } from "../useFetchData";
 
 export function MainSection() {
-  const { getToken } = useAuth();
   const { isLoading, data: categories } = useAuthFetch("food-category");
   if (isLoading) return <div>Loading...</div>;
 
