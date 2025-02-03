@@ -161,7 +161,7 @@ export function EditFoodDialog({ food }: Props) {
 
           <input
             defaultValue={newPrice}
-            onChange={(e) => setNewPrice(e.target.value)}
+            onChange={(e) => setNewPrice(Number(e.target.value))}
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Price"
           />

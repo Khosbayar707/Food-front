@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 
 export function useAuthFetch(path: string) {
   const { getToken } = useAuth();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   async function getFetchData() {
     const token = await getToken();
     if (token) {
       fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${path}`, {
+        method: "GET",
         headers: {
           authentication: token,
         },

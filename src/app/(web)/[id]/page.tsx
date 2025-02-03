@@ -7,12 +7,12 @@ import { Foods } from "@/app/types";
 import { MainCategory } from "@/app/_component/MainCategory";
 import { BookingButton } from "@/app/_component/BookingButton";
 import { useAuth } from "@clerk/nextjs";
-
+//
 export default function CategoryPage() {
   const { getToken } = useAuth();
   const { id } = useParams();
   const searchParams = useSearchParams();
-  const query = searchParams.get("category") || id;
+  const query: string | null = searchParams.get("category");
   const [foods, setFoods] = useState<Foods[]>([]);
 
   useEffect(() => {

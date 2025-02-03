@@ -6,6 +6,7 @@ import { Raleway } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { OrderContextProvider } from "./OrderDetailContext";
 import { FoodDetailProvider } from "./OrderFoodContext";
+import { Suspense } from "react";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -41,7 +42,9 @@ export default function RootLayout({
         <ClerkProvider>
           <FoodDetailProvider>
             <OrderContextProvider>
-              <LayoutWrapper>{children}</LayoutWrapper>
+              <LayoutWrapper>
+                <Suspense>{children}</Suspense>
+              </LayoutWrapper>
             </OrderContextProvider>
           </FoodDetailProvider>
         </ClerkProvider>

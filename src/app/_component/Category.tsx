@@ -5,13 +5,19 @@ import { Badge } from "@/components/ui/badge";
 import { AddCategoryDialog } from "./AddCategoryDialog";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Category } from "../types";
 import { useAuth } from "@clerk/nextjs";
+
+type Category = {
+  _id: string;
+  categoryName: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export function Category() {
   const [categories, setCategories] = useState<Category[]>([]);
-  const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  // const searchParams = useSearchParams();
+  // const category = searchParams.get("category");
   const { getToken } = useAuth();
 
   async function getFetchData() {

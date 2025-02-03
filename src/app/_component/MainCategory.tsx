@@ -11,8 +11,8 @@ import { useAuth } from "@clerk/nextjs";
 import { useAuthFetch } from "../useFetchData";
 
 export function MainCategory() {
-  const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  // const searchParams = useSearchParams();
+  // const category = searchParams.get("category");
 
   const { getToken } = useAuth();
   const { isLoading, data: categories } = useAuthFetch("food-category");

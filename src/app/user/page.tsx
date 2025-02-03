@@ -14,6 +14,8 @@ export default function NewUser() {
         address: "2024/12/СБД, 12-р хороо, СБД нэгдсэн эмнэлэг Sbd negdsen",
       }),
     });
+    const data = await response.json();
+    console.log(data);
   }
   return (
     <button
