@@ -23,7 +23,7 @@ export function Category() {
   async function getFetchData() {
     const token = await getToken();
     if (!token) return;
-    fetch(`http://localhost:8000/food-category/`, {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/food-category/`, {
       headers: {
         authentication: token,
       },
@@ -38,14 +38,17 @@ export function Category() {
   async function addCategory(categoryName: string) {
     const token = await getToken();
     if (!token) return;
-    const response = await fetch(`http://localhost:8000/food-category/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authentication: token,
-      },
-      body: JSON.stringify({ categoryName }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food-category/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+        body: JSON.stringify({ categoryName }),
+      }
+    );
     const data = await response.json();
     setCategories([...categories, data]);
   }

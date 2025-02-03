@@ -47,18 +47,21 @@ export function OrderSheet() {
     const token = await getToken();
     if (!token) return;
 
-    const response = await fetch(`http://localhost:8000/food-order/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authentication: token,
-      },
-      body: JSON.stringify({
-        user: "6797346316427d98ec5a3f07",
-        totalPrice,
-        foodOrderItems: order,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food-order/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: token,
+        },
+        body: JSON.stringify({
+          user: "6797346316427d98ec5a3f07",
+          totalPrice,
+          foodOrderItems: order,
+        }),
+      }
+    );
 
     if (response.ok) {
       setOrderedFoods([]);

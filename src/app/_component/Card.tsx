@@ -36,7 +36,7 @@ export function Card({ category }: Props) {
     const token = await getToken();
     if (!token) return;
     const response = await fetch(
-      `http://localhost:8000/food/${category?._id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/${category?._id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -51,20 +51,23 @@ export function Card({ category }: Props) {
   async function addFoods() {
     const token = await getToken();
     if (!token) return;
-    const response = await fetch(`http://localhost:8000/food/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authentication: token,
-      },
-      body: JSON.stringify({
-        foodName: newFoodName,
-        price: newPrice,
-        ingredients: newIngredients,
-        category: category._id,
-        image: newImage,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+        body: JSON.stringify({
+          foodName: newFoodName,
+          price: newPrice,
+          ingredients: newIngredients,
+          category: category._id,
+          image: newImage,
+        }),
+      }
+    );
     const data = await response.json();
     setFoods([...foods, data]);
   }

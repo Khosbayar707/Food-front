@@ -17,7 +17,7 @@ export default function Pfp() {
   //   try {
   //     const token = await getToken();
 
-  //     const response = await fetch(`http://localhost:8000/user`, {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",

@@ -21,7 +21,7 @@ export function MainCard({ category }: Props) {
     const token = await getToken();
     if (!token) return;
     const response = await fetch(
-      `http://localhost:8000/food/${category?._id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/${category?._id}`,
       {
         headers: {
           "Content-Type": "application/json",

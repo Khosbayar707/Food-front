@@ -20,12 +20,15 @@ export default function CategoryPage() {
     async function fetchFoods() {
       const token = await getToken();
       if (!token) return;
-      const response = await fetch(`http://localhost:8000/food/${query}`, {
-        headers: {
-          "Content-Type": "application/json",
-          authentication: token,
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/${query}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authentication: token,
+          },
+        }
+      );
       const data = await response.json();
       setFoods(data);
     }

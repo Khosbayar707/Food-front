@@ -12,12 +12,15 @@ export function OrderBar() {
     const token = await getToken();
     try {
       if (!token) return;
-      const response = await fetch(`http://localhost:8000/food-order/`, {
-        headers: {
-          "Content-Type": "application/json",
-          authentication: token,
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/food-order/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authentication: token,
+          },
+        }
+      );
       if (!response.ok) throw new Error("Failed to fetch orders");
       const data = await response.json();
       setOrderData(data);

@@ -50,9 +50,12 @@ export function EditFoodDialog({ food }: Props) {
   async function deleteFoods() {
     const token = await getToken();
     if (!token) return;
-    const response = await fetch(`http://localhost:8000/food/${food._id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/${food._id}`,
+      {
+        method: "DELETE",
+      }
+    );
     if (response.ok) {
     } else {
       ("error");
@@ -62,20 +65,23 @@ export function EditFoodDialog({ food }: Props) {
   async function editFoods() {
     const token = await getToken();
     if (!token) return;
-    const response = await fetch(`http://localhost:8000/food/${food._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authentication: token,
-      },
-      body: JSON.stringify({
-        foodName: newFoodName,
-        price: newPrice,
-        ingredients: newFoodIngredients,
-        category: newCategory,
-        image: newImage,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/${food._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authentication: token,
+        },
+        body: JSON.stringify({
+          foodName: newFoodName,
+          price: newPrice,
+          ingredients: newFoodIngredients,
+          category: newCategory,
+          image: newImage,
+        }),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();

@@ -23,7 +23,7 @@ import { Section } from "../_component/Section";
 // const [foods, setFoods] = useState<Foods[]>([]);
 
 // async function getFood() {
-//   const response = await fetch(`http://localhost:8000/food/${category}`);
+//   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/food/${category}`);
 //   const data = await response.json();
 //   setFoods(data);
 // }
