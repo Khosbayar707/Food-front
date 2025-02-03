@@ -15,12 +15,15 @@ export default function OrderTable() {
       const token = await getToken();
       if (!token) throw new Error("No token found");
 
-      const response = await fetch(`http://localhost:8000/food-order/`, {
-        headers: {
-          "Content-Type": "application/json",
-          authentication: token,
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/food-order/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authentication: token,
+          },
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to fetch orders");
 
@@ -42,7 +45,7 @@ export default function OrderTable() {
       if (!token) throw new Error("No token found");
 
       const response = await fetch(
-        `http://localhost:8000/food-order/${orderId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/food-order/${orderId}`,
         {
           method: "PUT",
           headers: {
