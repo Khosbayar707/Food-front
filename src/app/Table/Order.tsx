@@ -5,7 +5,7 @@ import { columns, Order } from "./Column";
 import { DataTable } from "./DataTable";
 import { useAuth } from "@clerk/nextjs";
 
-export default function OrderTable() {
+export function OrderTable() {
   const [orderData, setOrderData] = useState<Order[]>([]);
   const [error, setError] = useState(false);
   const { getToken } = useAuth();
