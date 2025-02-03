@@ -1,5 +1,5 @@
 import Layout from "../_component/Layout";
-import OrderTable from "../_component/Table/order";
+import OrderTable from "../_component/Table/Order";
 
 export default function Page() {
   return (
