@@ -13,15 +13,6 @@ const raleway = Raleway({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Food delivery",
@@ -35,10 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
-        className={`${raleway.variable} antialiased bg-gray-100`}
-      >
+      <body className={`${raleway.variable} antialiased bg-gray-100`}>
         <ClerkProvider>
           <FoodDetailProvider>
             <OrderContextProvider>

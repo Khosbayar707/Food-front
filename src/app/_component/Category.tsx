@@ -23,7 +23,7 @@ export function Category() {
   async function getFetchData() {
     const token = await getToken();
     if (!token) return;
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/food-category/`, {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/food-category`, {
       headers: {
         authentication: token,
       },

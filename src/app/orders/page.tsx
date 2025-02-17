@@ -1,10 +1,10 @@
-import Layout from "../_component/Layout";
+import Sidebar from "../_component/AdminSidebar";
 import { OrderTable } from "../Table/Order";
 
 export default function Page() {
   return (
-    <Layout>
+    <Sidebar>
       <OrderTable />
-    </Layout>
+    </Sidebar>
   );
 }

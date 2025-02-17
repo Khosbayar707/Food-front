@@ -52,7 +52,7 @@ export function Card({ category }: Props) {
     const token = await getToken();
     if (!token) return;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/food`,
       {
         method: "POST",
         headers: {

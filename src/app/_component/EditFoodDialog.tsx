@@ -54,6 +54,9 @@ export function EditFoodDialog({ food }: Props) {
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/food/${food._id}`,
       {
         method: "DELETE",
+        headers: {
+          authentication: token,
+        },
       }
     );
     if (response.ok) {

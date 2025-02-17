@@ -1,7 +1,7 @@
 "use client";
 
 import { Category } from "../_component/Category";
-import Layout from "../_component/Layout";
+import Layout from "../_component/AdminSidebar";
 import Pfp from "../_component/pfp";
 import { Section } from "../_component/Section";
 // type Props = {

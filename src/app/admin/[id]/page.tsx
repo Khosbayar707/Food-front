@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { EditFoodDialog } from "@/app/_component/EditFoodDialog";
 import { Foods } from "@/app/types";
-import Layout from "@/app/_component/Layout";
+import Layout from "@/app/_component/AdminSidebar";
 import { Category } from "@/app/_component/Category";
 import { useAuth } from "@clerk/nextjs";
 
